@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const PlaceCard = (props) => {
   const {place} = props;
@@ -41,6 +42,18 @@ const PlaceCard = (props) => {
       </div>
     </article>
   );
+};
+
+PlaceCard.propTypes = {
+  place: PropTypes.shape({
+    imageLink: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    favorite: PropTypes.bool,
+    premium: PropTypes.bool
+  })
 };
 
 export default PlaceCard;

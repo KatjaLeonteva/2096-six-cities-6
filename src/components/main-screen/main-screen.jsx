@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Header from '../header/header';
 import PlaceCard from '../place-card/place-card';
 
 const MainScreen = (props) => {
-  const {places = []} = props;
+  const {total, places} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -51,7 +52,7 @@ const MainScreen = (props) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{total} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -79,6 +80,21 @@ const MainScreen = (props) => {
       </main>
     </div>
   );
+};
+
+MainScreen.propTypes = {
+  total: PropTypes.number.isRequired,
+  places: PropTypes.arrayOf(
+      PropTypes.shape({
+        imageLink: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        favorite: PropTypes.bool,
+        premium: PropTypes.bool
+      })
+  )
 };
 
 export default MainScreen;
