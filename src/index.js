@@ -6,6 +6,7 @@ const total = 312;
 
 const places = [
   {
+    id: `1`,
     imageLink: `img/apartment-01.jpg`,
     price: 120,
     rating: 4,
@@ -15,6 +16,7 @@ const places = [
     premium: true
   },
   {
+    id: `2`,
     imageLink: `img/room.jpg`,
     price: 80,
     rating: 4,
@@ -24,6 +26,7 @@ const places = [
     premium: false
   },
   {
+    id: `3`,
     imageLink: `img/apartment-02.jpg`,
     price: 132,
     rating: 4,
@@ -33,6 +36,7 @@ const places = [
     premium: false
   },
   {
+    id: `4`,
     imageLink: `img/apartment-03.jpg`,
     price: 180,
     rating: 5,
