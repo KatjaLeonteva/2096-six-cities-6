@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../header/header';
-import PlaceCard from '../place-card/place-card';
+import RoomCard from '../room-card/room-card';
 
 const MainScreen = (props) => {
   const {total, places} = props;
@@ -54,7 +54,7 @@ const MainScreen = (props) => {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{total} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
+                <span className="places__sorting-caption">Sort by&nbsp;</span>
                 <span className="places__sorting-type" tabIndex="0">
                   Popular
                   <svg className="places__sorting-arrow" width="7" height="4">
@@ -69,7 +69,7 @@ const MainScreen = (props) => {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {places.map((place, i) => <PlaceCard key={place.type + i} place={place} />)}
+                {places.map((place) => <RoomCard key={place.id} place={place} />)}
               </div>
             </section>
             <div className="cities__right-section">
@@ -86,6 +86,7 @@ MainScreen.propTypes = {
   total: PropTypes.number.isRequired,
   places: PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.string.isRequired,
         imageLink: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         rating: PropTypes.number.isRequired,
