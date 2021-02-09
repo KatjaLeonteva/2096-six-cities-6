@@ -6,12 +6,13 @@ import Header from '../header/header';
 import RoomCard from '../room-card/room-card';
 import ReviewsList from '../reviews-list/reviews-list';
 
-import {cardTypes} from '../../const';
+import {cardTypes, OfferTypes} from '../../const';
 import ReviewForm from "../review-form/review-form";
 
 
 const RoomScreen = (props) => {
   const {place, reviews, placesNearby} = props;
+  const isAuthorized = true;
 
   return (
     <div className="page">
@@ -53,7 +54,7 @@ const RoomScreen = (props) => {
                 <span className="property__rating-value rating__value">{place.value}</span>
               </div>
               <ul className="property__features">
-                <li className="property__feature property__feature--entire">{place.type}</li>
+                <li className="property__feature property__feature--entire">{OfferTypes[place.type.toUpperCase()]}</li>
                 <li className="property__feature property__feature--bedrooms">{place.bedrooms} Bedrooms</li>
                 <li className="property__feature property__feature--adults">Max {place.maxAdults} adults</li>
               </ul>
@@ -86,7 +87,7 @@ const RoomScreen = (props) => {
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 <ReviewsList reviews={reviews} />
-                <ReviewForm />
+                {isAuthorized && <ReviewForm />}
               </section>
             </div>
           </div>

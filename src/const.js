@@ -9,7 +9,7 @@ export const Cities = {
 
 export const OfferTypes = {
   APARTMENT: `Apartment`,
-  ROOM: `Room`,
+  ROOM: `Private room`,
   HOUSE: `House`,
   HOTEL: `Hotel`
 };

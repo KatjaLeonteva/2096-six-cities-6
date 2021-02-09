@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
 import {roomPropType} from '../../prop-types';
-import {cardTypes} from '../../const';
+import {cardTypes, OfferTypes} from '../../const';
 
 const RoomCard = (props) => {
   const {place, type, handleMouseEnter, handleMouseOut} = props;
@@ -48,7 +48,7 @@ const RoomCard = (props) => {
         <h2 className="place-card__name">
           <Link to={`/offer/${place.id}`}>{place.title}</Link>
         </h2>
-        <p className="place-card__type">{place.type}</p>
+        <p className="place-card__type">{OfferTypes[place.type.toUpperCase()]}</p>
       </div>
     </article>
   );
