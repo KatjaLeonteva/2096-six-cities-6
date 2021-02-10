@@ -25,9 +25,9 @@ const App = (props) => {
         <Route exact path="/favorites">
           <FavoritesScreen places={places.filter((place) => place.isFavorite)}/>
         </Route>
-        <Route exact path="/offer/:id">
-          <RoomScreen place={places[0]} placesNearby={[places[1], places[2], places[3]]} reviews={reviews} />
-        </Route>
+        <Route exact path="/offer/:id" render={({match}) => (
+          <RoomScreen place={places.find((place) => place.id === +match.params.id)} placesNearby={[places[1], places[2], places[3]]} reviews={reviews} />
+        )} />
         <Route>
           <NotFoundScreen />
         </Route>

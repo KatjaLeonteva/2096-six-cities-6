@@ -11,8 +11,12 @@ const ReviewForm = () => {
     setReviewForm({...reviewForm, [name]: value});
   };
 
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {[5, 4, 3, 2, 1].map((item) => (
