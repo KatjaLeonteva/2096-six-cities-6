@@ -1,6 +1,5 @@
 import React from 'react';
-import {Redirect} from 'react-router';
-import {useParams} from 'react-router-dom';
+import {Redirect, useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {reviewPropType, offerPropType} from '../../prop-types';
 
@@ -15,7 +14,7 @@ import {cardTypes, OfferTypes} from '../../const';
 const OfferScreen = (props) => {
   const {offers, reviews} = props;
   const {id} = useParams();
-  const isAuthorized = true;
+  const isAuthorized = true; // Temporary
 
   const offer = offers.find((item) => item.id === +id);
   const offersNearby = [offers[1], offers[2], offers[3]];
