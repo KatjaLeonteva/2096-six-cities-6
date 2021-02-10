@@ -1,33 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {reviewPropType, roomPropType} from '../../prop-types';
+import {reviewPropType, offerPropType} from '../../prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import MainScreen from '../main-screen/main-screen';
 import SignInScreen from '../sign-in-screen/sign-in-screen';
 import FavoritesScreen from '../favorites-screen/favorites-screen';
-import RoomScreen from '../room-screen/room-screen';
+import OfferScreen from '../offer-screen/offer-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 
 const App = (props) => {
-  const {total, city, places, reviews} = props;
+  const {total, city, offers, reviews} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <MainScreen total={total} city={city} places={places.filter((place) => place.city.name === city)} />
+          <MainScreen total={total} city={city} offers={offers.filter((offer) => offer.city.name === city)} />
         </Route>
         <Route exact path="/login">
           <SignInScreen />
         </Route>
         <Route exact path="/favorites">
-          <FavoritesScreen places={places.filter((place) => place.isFavorite)}/>
+          <FavoritesScreen offers={offers.filter((offer) => offer.isFavorite)}/>
         </Route>
-        <Route exact path="/offer/:id" render={({match}) => (
-          <RoomScreen place={places.find((place) => place.id === +match.params.id)} placesNearby={[places[1], places[2], places[3]]} reviews={reviews} />
-        )} />
+        <Route exact path="/offer/:id">
+          <OfferScreen offers={offers} reviews={reviews} />
+        </Route>
         <Route>
           <NotFoundScreen />
         </Route>
@@ -39,7 +39,7 @@ const App = (props) => {
 App.propTypes = {
   total: PropTypes.number.isRequired,
   city: PropTypes.string.isRequired,
-  places: PropTypes.arrayOf(roomPropType),
+  offers: PropTypes.arrayOf(offerPropType),
   reviews: PropTypes.arrayOf(reviewPropType)
 };
 

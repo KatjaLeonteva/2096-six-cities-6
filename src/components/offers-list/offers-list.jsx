@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {roomPropType} from '../../prop-types';
+import {offerPropType} from '../../prop-types';
 
-import RoomCard from '../room-card/room-card';
+import OfferCard from '../offer-card/offer-card';
 
 import {cardTypes} from '../../const';
 
-const RoomsList = (props) => {
-  const {places} = props;
+const OffersList = (props) => {
+  const {offers} = props;
   const [activeCard, setActiveCard] = useState({});
 
   const handleMouseEnter = (selectedCard) => {
@@ -20,12 +20,12 @@ const RoomsList = (props) => {
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {places.map((place) => (
-        <RoomCard
-          key={place.id}
-          place={place}
+      {offers.map((offer) => (
+        <OfferCard
+          key={offer.id}
+          offer={offer}
           type={cardTypes.MAIN}
-          isActive={activeCard.id === place.id}
+          isActive={activeCard.id === offer.id}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave} />
       ))}
@@ -34,8 +34,8 @@ const RoomsList = (props) => {
 
 };
 
-RoomsList.propTypes = {
-  places: PropTypes.arrayOf(roomPropType)
+OffersList.propTypes = {
+  offers: PropTypes.arrayOf(offerPropType)
 };
 
-export default RoomsList;
+export default OffersList;

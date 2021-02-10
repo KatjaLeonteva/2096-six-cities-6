@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {roomPropType} from '../../prop-types';
+import {offerPropType} from '../../prop-types';
 
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import RoomCard from '../room-card/room-card';
+import OfferCard from '../offer-card/offer-card';
 
 import {cardTypes} from '../../const';
 
 const FavoritesScreen = (props) => {
-  const {places} = props;
-  const placesByCity = places.reduce((acc, cur) => {
+  const {offers} = props;
+  const offersByCity = offers.reduce((acc, cur) => {
     acc[cur.city.name] = acc[cur.city.name] ? [...(acc[cur.city.name]), cur] : [cur];
     return acc;
   }, {});
@@ -24,7 +24,7 @@ const FavoritesScreen = (props) => {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {Object.entries(placesByCity).map(([city, savedPlaces]) => {
+              {Object.entries(offersByCity).map(([city, savedOffers]) => {
                 return (
                   <li className="favorites__locations-items" key={city}>
                     <div className="favorites__locations locations locations--current">
@@ -35,7 +35,7 @@ const FavoritesScreen = (props) => {
                       </div>
                     </div>
                     <div className="favorites__places">
-                      {savedPlaces.map((place) => <RoomCard key={place.id} place={place} type={cardTypes.FAVORITES} />)}
+                      {savedOffers.map((offer) => <OfferCard key={offer.id} offer={offer} type={cardTypes.FAVORITES} />)}
                     </div>
                   </li>
                 );
@@ -51,7 +51,7 @@ const FavoritesScreen = (props) => {
 };
 
 FavoritesScreen.propTypes = {
-  places: PropTypes.arrayOf(roomPropType)
+  offers: PropTypes.arrayOf(offerPropType)
 };
 
 export default FavoritesScreen;

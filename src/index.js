@@ -10,6 +10,6 @@ const total = 312;
 const city = `Amsterdam`;
 
 ReactDOM.render(
-    <App total={total} city={city} places={offers} reviews={reviews} />,
+    <App total={total} city={city} offers={offers} reviews={reviews} />,
     document.querySelector(`#root`)
 );

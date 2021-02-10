@@ -6,7 +6,7 @@ const locationPropType = PropTypes.shape({
   zoom: PropTypes.number.isRequired
 });
 
-export const roomPropType = PropTypes.shape({
+export const offerPropType = PropTypes.shape({
   id: PropTypes.number.isRequired,
   previewImage: PropTypes.string.isRequired,
   images: PropTypes.arrayOf(PropTypes.string).isRequired,

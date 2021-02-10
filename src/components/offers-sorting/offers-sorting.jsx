@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RoomsSorting = () => {
+const OffersSorting = () => {
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -22,4 +22,4 @@ const RoomsSorting = () => {
 
 };
 
-export default RoomsSorting;
+export default OffersSorting;
