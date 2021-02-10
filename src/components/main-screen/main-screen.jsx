@@ -10,7 +10,7 @@ import {Cities} from '../../const';
 
 
 const MainScreen = (props) => {
-  const {total, city, offers} = props;
+  const {total, currentCity, offers} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -21,10 +21,10 @@ const MainScreen = (props) => {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {Object.values(Cities).map((value) => (
-                <li className="locations__item" key={value}>
-                  <a className={`locations__item-link tabs__item ${city === value ? `tabs__item--active` : ``}`} href="#">
-                    <span>{value}</span>
+              {Object.values(Cities).map((city) => (
+                <li className="locations__item" key={city}>
+                  <a className={`locations__item-link tabs__item ${city === currentCity ? `tabs__item--active` : ``}`} href="#">
+                    <span>{city}</span>
                   </a>
                 </li>
               ))}
@@ -36,7 +36,7 @@ const MainScreen = (props) => {
             ? <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{total} places to stay in {city}</b>
+                <b className="places__found">{total} places to stay in {currentCity}</b>
                 <OffersSorting />
                 <OffersList offers={offers}/>
               </section>
@@ -48,7 +48,7 @@ const MainScreen = (props) => {
               <section className="cities__no-places">
                 <div className="cities__status-wrapper tabs__content">
                   <b className="cities__status">No places to stay available</b>
-                  <p className="cities__status-description">We could not find any property available at the moment in {city}</p>
+                  <p className="cities__status-description">We could not find any property available at the moment in {currentCity}</p>
                 </div>
               </section>
               <div className="cities__right-section"></div>
@@ -62,7 +62,7 @@ const MainScreen = (props) => {
 
 MainScreen.propTypes = {
   total: PropTypes.number.isRequired,
-  city: PropTypes.string.isRequired,
+  currentCity: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(offerPropType)
 };
 

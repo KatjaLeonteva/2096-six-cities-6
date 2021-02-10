@@ -11,13 +11,13 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 
 const App = (props) => {
-  const {total, city, offers, reviews} = props;
+  const {total, currentCity, offers, reviews} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <MainScreen total={total} city={city} offers={offers.filter((offer) => offer.city.name === city)} />
+          <MainScreen total={total} currentCity={currentCity} offers={offers.filter((offer) => offer.city.name === currentCity)} />
         </Route>
         <Route exact path="/login">
           <SignInScreen />
@@ -38,7 +38,7 @@ const App = (props) => {
 
 App.propTypes = {
   total: PropTypes.number.isRequired,
-  city: PropTypes.string.isRequired,
+  currentCity: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(offerPropType),
   reviews: PropTypes.arrayOf(reviewPropType)
 };
