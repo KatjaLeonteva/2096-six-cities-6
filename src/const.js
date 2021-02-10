@@ -14,24 +14,7 @@ export const OfferTypes = {
   HOTEL: `Hotel`
 };
 
-export const SortingTypes = {
-  POPULAR: {
-    value: `popular`,
-    text: `Popular`
-  },
-  PRICE_ASC: {
-    value: `price-asc`,
-    text: `Price: low to high`
-  },
-  PRICE_DESC: {
-    value: `price-desc`,
-    text: `Price: high to low`
-  },
-  RATING: {
-    value: `rating`,
-    text: `Top rated first`
-  }
-};
+export const SortingTypes = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
 
 export const cardTypes = {
   MAIN: `main`,

@@ -6,7 +6,7 @@ import {roomPropType} from '../../prop-types';
 import {cardTypes, OfferTypes} from '../../const';
 
 const RoomCard = (props) => {
-  const {place, type, onMouseEnter, onMouseOut} = props;
+  const {place, type, onMouseEnter, onMouseLeave} = props;
 
   const classModifier = {
     [cardTypes.MAIN]: `cities__`,
@@ -19,7 +19,7 @@ const RoomCard = (props) => {
   };
 
   return (
-    <article className={`place-card ${classModifier[type]}place-card ${classModifier[type]}card`} onMouseEnter={handleMouseEnter} onMouseOut={onMouseOut}>
+    <article className={`place-card ${classModifier[type]}place-card`} onMouseEnter={handleMouseEnter} onMouseLeave={onMouseLeave}>
       {place.isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
@@ -62,7 +62,12 @@ RoomCard.propTypes = {
   place: roomPropType,
   type: PropTypes.string.isRequired,
   onMouseEnter: PropTypes.func,
-  onMouseOut: PropTypes.func
+  onMouseLeave: PropTypes.func
+};
+
+RoomCard.defaultProps = {
+  onMouseEnter: () => {},
+  onMouseLeave: () => {}
 };
 
 export default RoomCard;

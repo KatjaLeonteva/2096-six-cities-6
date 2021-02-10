@@ -8,15 +8,14 @@ import {cardTypes} from '../../const';
 
 const RoomsList = (props) => {
   const {places} = props;
-  // eslint-disable-next-line no-unused-vars
-  const [activeCard, setActiveCard] = useState(null);
+  const [activeCard, setActiveCard] = useState({});
 
   const handleMouseEnter = (selectedCard) => {
     setActiveCard(selectedCard);
   };
 
-  const handleMouseOut = () => {
-    setActiveCard(null);
+  const handleMouseLeave = () => {
+    setActiveCard({});
   };
 
   return (
@@ -26,8 +25,9 @@ const RoomsList = (props) => {
           key={place.id}
           place={place}
           type={cardTypes.MAIN}
+          isActive={activeCard.id === place.id}
           onMouseEnter={handleMouseEnter}
-          onMouseOut={handleMouseOut} />
+          onMouseLeave={handleMouseLeave} />
       ))}
     </div>
   );
