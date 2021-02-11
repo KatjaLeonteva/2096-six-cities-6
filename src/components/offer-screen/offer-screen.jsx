@@ -114,7 +114,6 @@ const OfferScreen = (props) => {
       </main>
     </div>
   );
-
 };
 
 OfferScreen.propTypes = {
