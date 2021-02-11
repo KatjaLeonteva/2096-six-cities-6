@@ -19,7 +19,6 @@ const OffersSorting = () => {
       </ul>
     </form>
   );
-
 };
 
 export default OffersSorting;
