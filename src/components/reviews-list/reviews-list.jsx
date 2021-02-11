@@ -51,7 +51,6 @@ const ReviewsList = (props) => {
       ))}
     </ul>
   );
-
 };
 
 ReviewsList.propTypes = {
