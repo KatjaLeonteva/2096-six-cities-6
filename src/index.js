@@ -6,10 +6,9 @@ import App from './components/app/app';
 import offers from './mocks/offers';
 import reviews from './mocks/reviews';
 
-const total = 312;
-const currentCity = `Amsterdam`;
+import {currentCity} from './const';
 
 ReactDOM.render(
-    <App total={total} currentCity={currentCity} offers={offers} reviews={reviews} />,
+    <App currentCity={currentCity} offers={offers} reviews={reviews} />,
     document.querySelector(`#root`)
 );
