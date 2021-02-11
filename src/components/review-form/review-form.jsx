@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 
+import {RATING} from '../../const';
+
 const ReviewForm = () => {
   const [reviewForm, setReviewForm] = useState({
     'rating': null,
@@ -19,10 +21,10 @@ const ReviewForm = () => {
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {[5, 4, 3, 2, 1].map((item) => (
-          <React.Fragment key={item}>
-            <input className="form__rating-input visually-hidden" name="rating" value={item} id={`${item}-stars`} type="radio" onChange={handleFieldChange} />
-            <label htmlFor={`${item}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
+        {RATING.map(({value, title}) => (
+          <React.Fragment key={value}>
+            <input className="form__rating-input visually-hidden" name="rating" value={value} id={`${value}-value`} type="radio" onChange={handleFieldChange} />
+            <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title={title}>
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
               </svg>
