@@ -10,7 +10,7 @@ import {Cities} from '../../const';
 
 
 const MainScreen = (props) => {
-  const {total, currentCity, offers} = props;
+  const {currentCity, offers} = props;
 
   return (
     <div className="page page--gray page--main">
