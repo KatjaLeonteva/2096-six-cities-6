@@ -31,7 +31,6 @@ const OffersList = (props) => {
       ))}
     </div>
   );
-
 };
 
 OffersList.propTypes = {
