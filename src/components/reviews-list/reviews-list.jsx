@@ -5,28 +5,6 @@ import {reviewPropType} from '../../prop-types';
 const ReviewsList = (props) => {
   const {reviews} = props;
 
-  const getMonthYear = (str) => {
-    const d = new Date(str);
-    const months = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
-    return `${months[d.getMonth()]} ${d.getFullYear()}`;
-  };
-
-  const formatDate = (str) => {
-    const d = new Date(str);
-    let month = (d.getMonth() + 1).toString();
-    let day = (d.getDate()).toString();
-    const year = d.getFullYear();
-
-    if (month.length < 2) {
-      month = `0${month}`;
-    }
-    if (day.length < 2) {
-      day = `0${day}`;
-    }
-
-    return [year, month, day].join(`-`);
-  };
-
   return (
     <ul className="reviews__list">
       {reviews.map((review) => (
@@ -45,7 +23,7 @@ const ReviewsList = (props) => {
               </div>
             </div>
             <p className="reviews__text">{review.comment}</p>
-            <time className="reviews__time" dateTime={formatDate(review.date)}>{getMonthYear(review.date)}</time>
+            <time className="reviews__time" dateTime={new Date(review.date).toLocaleString(`en-CA`, {dateStyle: `short`})}>{new Date(review.date).toLocaleString(`en-US`, {year: `numeric`, month: `long`})}</time>
           </div>
         </li>
       ))}
