@@ -7,6 +7,7 @@ import Header from '../header/header';
 import OfferCard from '../offer-card/offer-card';
 import ReviewsList from '../reviews-list/reviews-list';
 import ReviewForm from '../review-form/review-form';
+import Map from '../map/map';
 
 import {cardTypes, OfferTypes} from '../../const';
 import {getStarsWidth} from '../../utils';
@@ -101,7 +102,9 @@ const OfferScreen = (props) => {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map">
+            <Map offers={[offer, ...offersNearby]} />
+          </section>
         </section>
 
         <div className="container">

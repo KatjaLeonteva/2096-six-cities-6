@@ -15,11 +15,6 @@ const Map = (props) => {
     iconSize: [27, 39]
   });
 
-  const activeIcon = leaflet.icon({
-    iconUrl: `img/pin-active.svg`,
-    iconSize: [27, 39]
-  });
-
   useEffect(() => {
     const center = [city.location.latitude, city.location.longitude];
     const zoom = city.location.zoom;
