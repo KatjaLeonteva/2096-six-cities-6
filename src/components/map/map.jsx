@@ -43,7 +43,11 @@ const Map = (props) => {
         .addTo(map);
     });
 
-  }, []);
+    return () => {
+      map.remove();
+    };
+
+  }, [offers]);
 
   return (
     <div id="map" style={{height: `100%`}}></div>
