@@ -5,6 +5,7 @@ import {offerPropType} from '../../prop-types';
 import Header from '../header/header';
 import OffersSorting from '../offers-sorting/offers-sorting';
 import OffersList from '../offers-list/offers-list';
+import Map from '../map/map';
 
 import {Cities} from '../../const';
 
@@ -41,7 +42,9 @@ const MainScreen = (props) => {
                 <OffersList offers={offers}/>
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map"></section>
+                <section className="cities__map map">
+                  <Map offers={offers} />
+                </section>
               </div>
             </div>
             : <div className="cities__places-container container cities__places-container--empty">
