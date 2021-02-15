@@ -27,10 +27,10 @@ const OfferCard = (props) => {
       }
       <div className={`place-card__image-wrapper ${classModifier[type]}image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
-          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={offer.previewImage} width={type === cardTypes.FAVORITES ? `150` : `260`} height={type === cardTypes.FAVORITES ? `110` : `200`} alt="Place image" />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={type === cardTypes.FAVORITES ? `favorites__card-info place-card__info` : `place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>
