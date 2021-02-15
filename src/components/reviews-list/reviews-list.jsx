@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {reviewPropType} from '../../prop-types';
 
+import {getStarsWidth} from '../../utils';
+
 const ReviewsList = (props) => {
   const {reviews} = props;
 
@@ -18,7 +20,7 @@ const ReviewsList = (props) => {
           <div className="reviews__info">
             <div className="reviews__rating rating">
               <div className="reviews__stars rating__stars">
-                <span style={{width: `${Math.round(review.rating) * 20}%`}}></span>
+                <span style={{width: `${getStarsWidth(review.rating)}`}}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
             </div>

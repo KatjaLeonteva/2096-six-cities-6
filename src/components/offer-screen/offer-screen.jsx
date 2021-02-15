@@ -9,6 +9,7 @@ import ReviewsList from '../reviews-list/reviews-list';
 import ReviewForm from '../review-form/review-form';
 
 import {cardTypes, OfferTypes} from '../../const';
+import {getStarsWidth} from '../../utils';
 
 
 const OfferScreen = (props) => {
@@ -57,7 +58,7 @@ const OfferScreen = (props) => {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `${Math.round(offer.rating) * 20}%`}}></span>
+                  <span style={{width: `${getStarsWidth(offer.rating)}`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{offer.value}</span>
