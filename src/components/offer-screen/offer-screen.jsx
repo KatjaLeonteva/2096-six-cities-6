@@ -103,7 +103,7 @@ const OfferScreen = (props) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={[offer, ...offersNearby]} />
+            <Map city={offer.city} points={offersNearby} />
           </section>
         </section>
 

@@ -6,6 +6,11 @@ export const locationPropType = PropTypes.shape({
   zoom: PropTypes.number.isRequired
 });
 
+export const cityPropType = PropTypes.shape({
+  location: locationPropType.isRequired,
+  name: PropTypes.string.isRequired
+});
+
 export const offerPropType = PropTypes.shape({
   id: PropTypes.number.isRequired,
   previewImage: PropTypes.string.isRequired,
@@ -26,10 +31,7 @@ export const offerPropType = PropTypes.shape({
     isPro: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired
   }),
-  city: PropTypes.shape({
-    location: locationPropType.isRequired,
-    name: PropTypes.string.isRequired
-  }),
+  city: cityPropType.isRequired,
   location: locationPropType.isRequired
 });
 

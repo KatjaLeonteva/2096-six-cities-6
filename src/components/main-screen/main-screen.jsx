@@ -51,7 +51,7 @@ const MainScreen = (props) => {
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map offers={filteredOffers} />
+                  <Map city={filteredOffers[0].city} points={filteredOffers} />
                 </section>
               </div>
             </div>

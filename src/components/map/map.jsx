@@ -1,14 +1,14 @@
-import React, {useEffect} from 'react';
+import React, {useRef, useEffect} from 'react';
 
 import PropTypes from 'prop-types';
-import {offerPropType} from '../../prop-types';
+import {cityPropType, offerPropType} from '../../prop-types';
 
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const Map = (props) => {
-  const {offers} = props;
-  const city = offers[0].city;
+  const {city, points} = props;
+  const mapRef = useRef();
 
   const icon = leaflet.icon({
     iconUrl: `img/pin.svg`,
@@ -16,41 +16,38 @@ const Map = (props) => {
   });
 
   useEffect(() => {
-    const center = [city.location.latitude, city.location.longitude];
-    const zoom = city.location.zoom;
-    const map = leaflet.map(`map`, {
-      center,
-      zoom,
-      zoomControl: false,
-      marker: true
+    mapRef.current = leaflet.map(`map`, {
+      center: [city.location.latitude, city.location.longitude],
+      zoom: city.location.zoom
     });
-    map.setView(center, zoom);
 
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
-      .addTo(map);
+      .addTo(mapRef.current);
 
-    offers.forEach((offer) => {
+    points.forEach((point) => {
       leaflet
-        .marker([offer.location.latitude, offer.location.longitude], {icon})
-        .addTo(map);
+        .marker([point.location.latitude, point.location.longitude], {icon})
+        .addTo(mapRef.current)
+        .bindPopup(point.title);
     });
 
     return () => {
-      map.remove();
+      mapRef.current.remove();
     };
 
-  }, [offers]);
+  }, [points]);
 
   return (
-    <div id="map" style={{height: `100%`}}></div>
+    <div id="map" style={{height: `100%`}} ref={mapRef}></div>
   );
 };
 
 Map.propTypes = {
-  offers: PropTypes.arrayOf(offerPropType)
+  city: cityPropType,
+  points: PropTypes.arrayOf(offerPropType)
 };
 
 export default Map;
