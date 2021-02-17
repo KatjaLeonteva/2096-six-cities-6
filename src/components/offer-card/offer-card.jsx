@@ -7,9 +7,11 @@ import {Link} from 'react-router-dom';
 import {cardTypes, OfferTypes} from '../../const';
 import {getStarsWidth} from '../../utils';
 
+import classnames from 'classnames';
+
 
 const OfferCard = (props) => {
-  const {offer, type, onMouseEnter, onMouseLeave} = props;
+  const {offer, cardType, onMouseEnter, onMouseLeave} = props;
 
   const classModifier = {
     [cardTypes.MAIN]: `cities__`,
@@ -22,24 +24,24 @@ const OfferCard = (props) => {
   };
 
   return (
-    <article className={`place-card ${classModifier[type]}place-card`} onMouseEnter={handleMouseEnter} onMouseLeave={onMouseLeave}>
+    <article className={`place-card ${classModifier[cardType]}place-card`} onMouseEnter={handleMouseEnter} onMouseLeave={onMouseLeave}>
       {offer.isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       }
-      <div className={`place-card__image-wrapper ${classModifier[type]}image-wrapper`}>
+      <div className={`place-card__image-wrapper ${classModifier[cardType]}image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
-          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={offer.previewImage} width={cardType === cardTypes.FAVORITES ? `150` : `260`} height={cardType === cardTypes.FAVORITES ? `110` : `200`} alt="Place image" />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={classnames(`place-card__info`, {'favorites__card-info': cardType === cardTypes.FAVORITES})}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&nbsp;&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button button ${offer.isFavorite ? `place-card__bookmark-button--active` : ``}`} type="button">
+          <button className={classnames(`place-card__bookmark-button button`, {'place-card__bookmark-button--active': offer.isFavorite})} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -63,7 +65,7 @@ const OfferCard = (props) => {
 
 OfferCard.propTypes = {
   offer: offerPropType,
-  type: PropTypes.string.isRequired,
+  cardType: PropTypes.oneOf(cardTypes),
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func
 };

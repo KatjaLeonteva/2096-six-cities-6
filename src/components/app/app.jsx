@@ -6,7 +6,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import MainScreen from '../main-screen/main-screen';
 import SignInScreen from '../sign-in-screen/sign-in-screen';
 import FavoritesScreen from '../favorites-screen/favorites-screen';
-import OfferScreen from '../offer-screen/offer-screen';
+import OfferScreenContainer from '../offer-screen/offer-screen-container';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 
@@ -26,7 +26,7 @@ const App = (props) => {
           <FavoritesScreen offers={offers.filter((offer) => offer.isFavorite)}/>
         </Route>
         <Route exact path="/offer/:id">
-          <OfferScreen offers={offers} reviews={reviews} />
+          <OfferScreenContainer offers={offers} reviews={reviews} />
         </Route>
         <Route>
           <NotFoundScreen />

@@ -1,10 +1,10 @@
 import React from 'react';
-import {Redirect, useParams} from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import {reviewPropType, offerPropType} from '../../prop-types';
 
 import Header from '../header/header';
-import OfferCard from '../offer-card/offer-card';
+import OffersList from '../offers-list/offers-list';
 import ReviewsList from '../reviews-list/reviews-list';
 import ReviewForm from '../review-form/review-form';
 import Map from '../map/map';
@@ -12,18 +12,11 @@ import Map from '../map/map';
 import {cardTypes, OfferTypes} from '../../const';
 import {getStarsWidth} from '../../utils';
 
+import classnames from 'classnames';
+
 
 const OfferScreen = (props) => {
-  const {offers, reviews} = props;
-  const {id} = useParams();
-  const isAuthorized = true; // Temporary
-
-  const offer = offers.find((item) => item.id === +id);
-  const offersNearby = [offers[1], offers[2], offers[3]];
-
-  if (!offer) {
-    return <Redirect to="/" />;
-  }
+  const {offer, reviews, offersNearby, isAuthorized} = props;
 
   return (
     <div className="page">
@@ -50,7 +43,7 @@ const OfferScreen = (props) => {
               }
               <div className="property__name-wrapper">
                 <h1 className="property__name">{offer.title}</h1>
-                <button className={`property__bookmark-button button ${offer.isFavorite ? `property__bookmark-button--active` : ``}`} type="button">
+                <button className={classnames(`property__bookmark-button button`, {'property__bookmark-button--active': offer.isFavorite})} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -84,7 +77,7 @@ const OfferScreen = (props) => {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={`property__avatar-wrapper user__avatar-wrapper ${offer.host.isPro ? `property__avatar-wrapper--pro` : ``}`}>
+                  <div className={classnames(`property__avatar-wrapper user__avatar-wrapper`, {'property__avatar-wrapper--pro': offer.host.isPro})}>
                     <img className="property__avatar user__avatar" src={offer.host.avatarUrl} width="74" height="74"
                       alt="Host avatar" />
                   </div>
@@ -96,23 +89,20 @@ const OfferScreen = (props) => {
               </div>
 
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 <ReviewsList reviews={reviews} />
                 {isAuthorized && <ReviewForm />}
               </section>
             </div>
           </div>
           <section className="property__map map">
-            <Map city={offer.city} points={offersNearby} />
+            <Map city={offer.city.location} points={offersNearby} />
           </section>
         </section>
 
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {offersNearby.map((item) => <OfferCard key={item.id} offer={item} type={cardTypes.NEARBY}/>)}
-            </div>
+            <OffersList offers={offersNearby} cardType={cardTypes.NEARBY}/>
           </section>
         </div>
       </main>
@@ -121,8 +111,10 @@ const OfferScreen = (props) => {
 };
 
 OfferScreen.propTypes = {
-  offers: PropTypes.arrayOf(offerPropType),
-  reviews: PropTypes.arrayOf(reviewPropType)
+  offer: offerPropType,
+  offersNearby: PropTypes.arrayOf(offerPropType),
+  reviews: PropTypes.arrayOf(reviewPropType),
+  isAuthorized: PropTypes.bool
 };
 
 export default OfferScreen;
