@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 const Header = () => {
-  const isAuthorized = false; // Temporary
+  const isAuthorized = false; // TODO: implement authorisation later
 
   return (
     <header className="header">

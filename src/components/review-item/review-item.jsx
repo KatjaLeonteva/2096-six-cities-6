@@ -6,6 +6,9 @@ import {getStarsWidth} from '../../utils';
 const ReviewItem = (props) => {
   const {review} = props;
 
+  const longDate = new Date(review.date).toLocaleString(`en-US`, {year: `numeric`, month: `long`});
+  const shortDate = new Date(review.date).toLocaleString(`en-CA`, {dateStyle: `short`});
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -22,7 +25,7 @@ const ReviewItem = (props) => {
           </div>
         </div>
         <p className="reviews__text">{review.comment}</p>
-        <time className="reviews__time" dateTime={new Date(review.date).toLocaleString(`en-CA`, {dateStyle: `short`})}>{new Date(review.date).toLocaleString(`en-US`, {year: `numeric`, month: `long`})}</time>
+        <time className="reviews__time" dateTime={shortDate}>{longDate}</time>
       </div>
     </li>
   );

@@ -9,7 +9,7 @@ import Map from '../map/map';
 
 import {Cities, cardTypes} from '../../const';
 
-import classnames from 'classnames';
+import cn from 'classnames';
 
 
 const MainScreen = (props) => {
@@ -28,14 +28,14 @@ const MainScreen = (props) => {
     <div className="page page--gray page--main">
       <Header />
 
-      <main className={classnames(`page__main page__main--index`, {'page__main--index-empty': !filteredOffers.length})}>
+      <main className={cn(`page__main page__main--index`, {'page__main--index-empty': !filteredOffers.length})}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
               {Object.values(Cities).map((city) => (
                 <li className="locations__item" key={city} onClick={handleCityClick}>
-                  <a className={classnames(`locations__item-link tabs__item`, {'tabs__item--active': city === activeCity})} href="#">
+                  <a className={cn(`locations__item-link tabs__item`, {'tabs__item--active': city === activeCity})} href="#">
                     <span>{city}</span>
                   </a>
                 </li>

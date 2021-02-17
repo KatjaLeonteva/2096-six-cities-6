@@ -11,7 +11,7 @@ import OffersList from '../offers-list/offers-list';
 
 import {cardTypes} from '../../const';
 
-import classnames from 'classnames';
+import cn from 'classnames';
 
 
 const FavoritesScreen = (props) => {
@@ -22,10 +22,10 @@ const FavoritesScreen = (props) => {
   }, {});
 
   return (
-    <div className={classnames(`page`, {'page--favorites-empty': !offers.length})}>
+    <div className={cn(`page`, {'page--favorites-empty': !offers.length})}>
       <Header />
 
-      <main className={classnames(`page__main page__main--favorites`, {'page__main--favorites-empty': !offers.length})}>
+      <main className={cn(`page__main page__main--favorites`, {'page__main--favorites-empty': !offers.length})}>
         <div className="page__favorites-container container">
           {offers.length ?
             <section className="favorites">
