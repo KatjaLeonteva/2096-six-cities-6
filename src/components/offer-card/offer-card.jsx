@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {offerPropType} from '../../prop-types';
+
 import {Link} from 'react-router-dom';
 
-import {offerPropType} from '../../prop-types';
 import {cardTypes, OfferTypes} from '../../const';
+import {getStarsWidth} from '../../utils';
+
 
 const OfferCard = (props) => {
   const {offer, type, onMouseEnter, onMouseLeave} = props;
@@ -45,7 +48,7 @@ const OfferCard = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${Math.round(offer.rating) * 20}%`}}></span>
+            <span style={{width: `${getStarsWidth(offer.rating)}`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
