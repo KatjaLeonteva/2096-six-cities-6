@@ -14,6 +14,7 @@ const MainScreen = (props) => {
   const {offers} = props;
   const [activeCity, setActiveCity] = useState(Cities.PARIS);
   const filteredOffers = offers.filter((offer) => offer.city.name === activeCity);
+  const cityLocation = filteredOffers.length ? filteredOffers[0].city.location : {};
 
   const handleCityClick = (evt) => {
     evt.preventDefault();
@@ -51,7 +52,7 @@ const MainScreen = (props) => {
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map city={filteredOffers[0].city} points={filteredOffers} />
+                  <Map city={cityLocation} points={filteredOffers} />
                 </section>
               </div>
             </div>

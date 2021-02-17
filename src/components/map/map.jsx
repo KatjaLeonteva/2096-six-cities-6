@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 
 import PropTypes from 'prop-types';
-import {cityPropType, offerPropType} from '../../prop-types';
+import {locationPropType, offerPropType} from '../../prop-types';
 
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -17,8 +17,8 @@ const Map = (props) => {
 
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
-      center: [city.location.latitude, city.location.longitude],
-      zoom: city.location.zoom
+      center: [city.latitude, city.longitude],
+      zoom: city.zoom
     });
 
     leaflet
@@ -46,7 +46,7 @@ const Map = (props) => {
 };
 
 Map.propTypes = {
-  city: cityPropType,
+  city: locationPropType,
   points: PropTypes.arrayOf(offerPropType)
 };
 

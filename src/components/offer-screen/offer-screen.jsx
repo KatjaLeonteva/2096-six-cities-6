@@ -87,14 +87,13 @@ const OfferScreen = (props) => {
               </div>
 
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 <ReviewsList reviews={reviews} />
                 {isAuthorized && <ReviewForm />}
               </section>
             </div>
           </div>
           <section className="property__map map">
-            <Map city={offer.city} points={offersNearby} />
+            <Map city={offer.city.location} points={offersNearby} />
           </section>
         </section>
 
