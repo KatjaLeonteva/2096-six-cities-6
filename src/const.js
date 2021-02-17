@@ -7,8 +7,6 @@ export const Cities = {
   DUSSELDORF: `Dusseldorf`
 };
 
-export const currentCity = Cities.AMSTERDAM;
-
 export const OfferTypes = {
   APARTMENT: `Apartment`,
   ROOM: `Private room`,
