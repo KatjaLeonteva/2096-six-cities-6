@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {reviewPropType, offerPropType} from '../../prop-types';
 
 import Header from '../header/header';
-import OfferCard from '../offer-card/offer-card';
+import OffersList from '../offers-list/offers-list';
 import ReviewsList from '../reviews-list/reviews-list';
 import ReviewForm from '../review-form/review-form';
 import Map from '../map/map';
@@ -102,9 +102,7 @@ const OfferScreen = (props) => {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {offersNearby.map((item) => <OfferCard key={item.id} offer={item} type={cardTypes.NEARBY}/>)}
-            </div>
+            <OffersList offers={offersNearby} cardType={cardTypes.NEARBY}/>
           </section>
         </div>
       </main>

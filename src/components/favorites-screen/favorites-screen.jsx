@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import OfferCard from '../offer-card/offer-card';
+import OffersList from '../offers-list/offers-list';
 
 import {cardTypes} from '../../const';
 
@@ -41,9 +41,7 @@ const FavoritesScreen = (props) => {
                           </Link>
                         </div>
                       </div>
-                      <div className="favorites__places">
-                        {savedOffers.map((offer) => <OfferCard key={offer.id} offer={offer} type={cardTypes.FAVORITES}/>)}
-                      </div>
+                      <OffersList offers={savedOffers} cardType={cardTypes.FAVORITES}/>
                     </li>
                   );
                 })}

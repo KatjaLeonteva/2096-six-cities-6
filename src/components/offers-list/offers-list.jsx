@@ -6,8 +6,11 @@ import OfferCard from '../offer-card/offer-card';
 
 import {cardTypes} from '../../const';
 
+import classnames from 'classnames';
+
+
 const OffersList = (props) => {
-  const {offers} = props;
+  const {offers, cardType = cardTypes.MAIN} = props;
   const [activeCard, setActiveCard] = useState({});
 
   const handleMouseEnter = (selectedCard) => {
@@ -19,12 +22,17 @@ const OffersList = (props) => {
   };
 
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div className={classnames(
+        `places__list`,
+        {'cities__places-list tabs__content': cardType === cardTypes.MAIN},
+        {'near-places__list': cardType === cardTypes.NEARBY},
+        {'favorites__places': cardType === cardTypes.FAVORITES}
+    )}>
       {offers.map((offer) => (
         <OfferCard
           key={offer.id}
           offer={offer}
-          type={cardTypes.MAIN}
+          cardType={cardType}
           isActive={activeCard.id === offer.id}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave} />
@@ -34,7 +42,8 @@ const OffersList = (props) => {
 };
 
 OffersList.propTypes = {
-  offers: PropTypes.arrayOf(offerPropType)
+  offers: PropTypes.arrayOf(offerPropType),
+  cardType: PropTypes.oneOf(cardTypes)
 };
 
 export default OffersList;

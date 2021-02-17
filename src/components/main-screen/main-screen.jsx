@@ -7,7 +7,7 @@ import OffersSorting from '../offers-sorting/offers-sorting';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 
-import {Cities} from '../../const';
+import {Cities, cardTypes} from '../../const';
 
 import classnames from 'classnames';
 
@@ -50,7 +50,7 @@ const MainScreen = (props) => {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{filteredOffers.length} places to stay in {activeCity}</b>
                 <OffersSorting />
-                <OffersList offers={filteredOffers}/>
+                <OffersList offers={filteredOffers} cardType={cardTypes.MAIN}/>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
