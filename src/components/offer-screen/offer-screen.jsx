@@ -12,6 +12,8 @@ import Map from '../map/map';
 import {cardTypes, OfferTypes} from '../../const';
 import {getStarsWidth} from '../../utils';
 
+import classnames from 'classnames';
+
 
 const OfferScreen = (props) => {
   const {offer, reviews, offersNearby, isAuthorized} = props;
@@ -41,7 +43,7 @@ const OfferScreen = (props) => {
               }
               <div className="property__name-wrapper">
                 <h1 className="property__name">{offer.title}</h1>
-                <button className={`property__bookmark-button button ${offer.isFavorite ? `property__bookmark-button--active` : ``}`} type="button">
+                <button className={classnames(`property__bookmark-button button`, {'property__bookmark-button--active': offer.isFavorite})} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -75,7 +77,7 @@ const OfferScreen = (props) => {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={`property__avatar-wrapper user__avatar-wrapper ${offer.host.isPro ? `property__avatar-wrapper--pro` : ``}`}>
+                  <div className={classnames(`property__avatar-wrapper user__avatar-wrapper`, {'property__avatar-wrapper--pro': offer.host.isPro})}>
                     <img className="property__avatar user__avatar" src={offer.host.avatarUrl} width="74" height="74"
                       alt="Host avatar" />
                   </div>

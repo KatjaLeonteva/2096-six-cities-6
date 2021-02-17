@@ -2,6 +2,8 @@ import React, {useState, useEffect, createRef} from 'react';
 
 import {SortingTypes} from '../../const';
 
+import classnames from 'classnames';
+
 const OffersSorting = () => {
   const [opened, setOpened] = useState(false);
   const [active, setActive] = useState(SortingTypes[0]);
@@ -44,9 +46,9 @@ const OffersSorting = () => {
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className={`places__options places__options--custom ${opened ? `places__options--opened` : ``}`}>
+      <ul className={classnames(`places__options places__options--custom`, {'places__options--opened': opened})}>
         {SortingTypes.map((item, i) => (
-          <li className={`places__option ${active === item ? `places__option--active` : ``}`} tabIndex="0" key={`sorting${i}`} onClick={handleItemClick}>{item}</li>
+          <li className={classnames(`places__option`, {'places__option--active': active === item})} tabIndex="0" key={`sorting${i}`} onClick={handleItemClick}>{item}</li>
         ))}
       </ul>
     </form>

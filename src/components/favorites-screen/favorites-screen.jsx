@@ -11,6 +11,9 @@ import OfferCard from '../offer-card/offer-card';
 
 import {cardTypes} from '../../const';
 
+import classnames from 'classnames';
+
+
 const FavoritesScreen = (props) => {
   const {offers} = props;
   const offersByCity = offers.reduce((acc, cur) => {
@@ -19,10 +22,10 @@ const FavoritesScreen = (props) => {
   }, {});
 
   return (
-    <div className={`page ${offers.length ? `` : `page--favorites-empty`}`}>
+    <div className={classnames(`page`, {'page--favorites-empty': !offers.length})}>
       <Header />
 
-      <main className={`page__main page__main--favorites ${offers.length ? `` : `page__main--favorites-empty`}`}>
+      <main className={classnames(`page__main page__main--favorites`, {'page__main--favorites-empty': !offers.length})}>
         <div className="page__favorites-container container">
           {offers.length ?
             <section className="favorites">
