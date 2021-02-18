@@ -9,6 +9,8 @@ import FavoritesScreen from '../favorites-screen/favorites-screen';
 import OfferScreenContainer from '../offer-screen/offer-screen-container';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
+import {Paths} from '../../const';
+
 
 const App = (props) => {
   const {reviews} = props;
@@ -16,16 +18,16 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={Paths.MAIN}>
           <MainScreen />
         </Route>
-        <Route exact path="/login">
+        <Route exact path={Paths.LOGIN}>
           <SignInScreen />
         </Route>
-        <Route exact path="/favorites">
+        <Route exact path={Paths.FAVORITES}>
           <FavoritesScreen />
         </Route>
-        <Route exact path="/offer/:id">
+        <Route exact path={Paths.OFFER}>
           <OfferScreenContainer reviews={reviews} />
         </Route>
         <Route>

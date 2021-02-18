@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import {offerPropType} from '../../prop-types';
 
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
 
 import Header from '../header/header';
+import CitiesList from '../cities-list/cities-list';
 import OffersSorting from '../offers-sorting/offers-sorting';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
+import MainEmpty from '../main-empty/main-empty';
 
 import {Cities, cardTypes} from '../../const';
 
@@ -16,13 +17,8 @@ import cn from 'classnames';
 
 
 const MainScreen = (props) => {
-  const {activeCity, cityOffers, onChangeCity} = props;
+  const {activeCity, cityOffers} = props;
   const cityLocation = cityOffers.length ? cityOffers[0].city.location : {};
-
-  const handleCityClick = (evt) => {
-    evt.preventDefault();
-    onChangeCity(evt.target.innerText);
-  };
 
   return (
     <div className="page page--gray page--main">
@@ -32,15 +28,7 @@ const MainScreen = (props) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              {Object.values(Cities).map((city) => (
-                <li className="locations__item" key={city} onClick={handleCityClick}>
-                  <a className={cn(`locations__item-link tabs__item`, {'tabs__item--active': city === activeCity})} href="#">
-                    <span>{city}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <CitiesList />
           </section>
         </div>
         <div className="cities">
@@ -59,15 +47,7 @@ const MainScreen = (props) => {
               </div>
             </div>
             :
-            <div className="cities__places-container container cities__places-container--empty">
-              <section className="cities__no-places">
-                <div className="cities__status-wrapper tabs__content">
-                  <b className="cities__status">No places to stay available</b>
-                  <p className="cities__status-description">We could not find any property available at the moment in {activeCity}</p>
-                </div>
-              </section>
-              <div className="cities__right-section"></div>
-            </div>
+            <MainEmpty activeCity={activeCity} />
           }
         </div>
       </main>
@@ -77,8 +57,7 @@ const MainScreen = (props) => {
 
 MainScreen.propTypes = {
   activeCity: PropTypes.oneOf(Object.values(Cities)),
-  cityOffers: PropTypes.arrayOf(offerPropType),
-  onChangeCity: PropTypes.func.isRequired
+  cityOffers: PropTypes.arrayOf(offerPropType)
 };
 
 const mapStateToProps = (state) => ({
@@ -86,12 +65,5 @@ const mapStateToProps = (state) => ({
   cityOffers: state.cityOffers
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onChangeCity(city) {
-    dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.setCityOffers());
-  },
-});
-
 export {MainScreen};
-export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
+export default connect(mapStateToProps)(MainScreen);

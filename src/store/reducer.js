@@ -6,8 +6,8 @@ import offers from '../mocks/offers';
 const initialState = {
   activeCity: Cities.PARIS,
   offers,
-  cityOffers: getCityOffers(Cities.PARIS),
-  favoriteOffers: getFavoriteOffers()
+  cityOffers: getCityOffers(offers, Cities.PARIS),
+  favoriteOffers: getFavoriteOffers(offers)
 };
 
 const reducer = (state = initialState, action) => {
@@ -20,11 +20,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_CITY_OFFERS:
       return {
         ...state,
-        cityOffers: getCityOffers(state.activeCity)
+        cityOffers: getCityOffers(state.offers, state.activeCity)
       };
+    default:
+      return state;
   }
-
-  return state;
 };
 
 export {reducer};
