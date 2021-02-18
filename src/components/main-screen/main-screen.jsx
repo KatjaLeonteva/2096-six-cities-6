@@ -1,6 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {offerPropType} from '../../prop-types';
+
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/action';
 
 import Header from '../header/header';
 import OffersSorting from '../offers-sorting/offers-sorting';
@@ -13,22 +16,19 @@ import cn from 'classnames';
 
 
 const MainScreen = (props) => {
-  const {offers} = props;
-  const [activeCity, setActiveCity] = useState(Cities.PARIS);
-  const filteredOffers = offers.filter((offer) => offer.city.name === activeCity);
-  const cityLocation = filteredOffers.length ? filteredOffers[0].city.location : {};
+  const {activeCity, cityOffers, onChangeCity} = props;
+  const cityLocation = cityOffers.length ? cityOffers[0].city.location : {};
 
   const handleCityClick = (evt) => {
     evt.preventDefault();
-    setActiveCity(evt.target.innerText);
+    onChangeCity(evt.target.innerText);
   };
-
 
   return (
     <div className="page page--gray page--main">
       <Header />
 
-      <main className={cn(`page__main page__main--index`, {'page__main--index-empty': !filteredOffers.length})}>
+      <main className={cn(`page__main page__main--index`, {'page__main--index-empty': !cityOffers.length})}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -44,17 +44,17 @@ const MainScreen = (props) => {
           </section>
         </div>
         <div className="cities">
-          {filteredOffers.length ?
+          {cityOffers.length ?
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{filteredOffers.length} places to stay in {activeCity}</b>
+                <b className="places__found">{cityOffers.length} places to stay in {activeCity}</b>
                 <OffersSorting />
-                <OffersList offers={filteredOffers} cardType={cardTypes.MAIN}/>
+                <OffersList offers={cityOffers} cardType={cardTypes.MAIN}/>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map city={cityLocation} points={filteredOffers} />
+                  <Map city={cityLocation} points={cityOffers} />
                 </section>
               </div>
             </div>
@@ -76,7 +76,22 @@ const MainScreen = (props) => {
 };
 
 MainScreen.propTypes = {
-  offers: PropTypes.arrayOf(offerPropType)
+  activeCity: PropTypes.oneOf(Object.values(Cities)),
+  cityOffers: PropTypes.arrayOf(offerPropType),
+  onChangeCity: PropTypes.func.isRequired
 };
 
-export default MainScreen;
+const mapStateToProps = (state) => ({
+  activeCity: state.activeCity,
+  cityOffers: state.cityOffers
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onChangeCity(city) {
+    dispatch(ActionCreator.changeCity(city));
+    dispatch(ActionCreator.setCityOffers());
+  },
+});
+
+export {MainScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {reviewPropType, offerPropType} from '../../prop-types';
+import {reviewPropType} from '../../prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import MainScreen from '../main-screen/main-screen';
@@ -11,22 +11,22 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 
 const App = (props) => {
-  const {offers, reviews} = props;
+  const {reviews} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <MainScreen offers={offers} />
+          <MainScreen />
         </Route>
         <Route exact path="/login">
           <SignInScreen />
         </Route>
         <Route exact path="/favorites">
-          <FavoritesScreen offers={offers.filter((offer) => offer.isFavorite)}/>
+          <FavoritesScreen />
         </Route>
         <Route exact path="/offer/:id">
-          <OfferScreenContainer offers={offers} reviews={reviews} />
+          <OfferScreenContainer reviews={reviews} />
         </Route>
         <Route>
           <NotFoundScreen />
@@ -37,7 +37,6 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  offers: PropTypes.arrayOf(offerPropType),
   reviews: PropTypes.arrayOf(reviewPropType)
 };
 

@@ -4,6 +4,8 @@ import {Redirect, useParams} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {reviewPropType, offerPropType} from '../../prop-types';
 
+import {connect} from 'react-redux';
+
 import OfferScreen from './offer-screen';
 
 
@@ -26,4 +28,9 @@ OfferScreenContainer.propTypes = {
   reviews: PropTypes.arrayOf(reviewPropType)
 };
 
-export default OfferScreenContainer;
+const mapStateToProps = (state) => ({
+  offers: state.offers
+});
+
+export {OfferScreenContainer};
+export default connect(mapStateToProps, null)(OfferScreenContainer);

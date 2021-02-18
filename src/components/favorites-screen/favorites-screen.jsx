@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {offerPropType} from '../../prop-types';
 
+import {connect} from 'react-redux';
+
 import {Link} from 'react-router-dom';
 
 import Header from '../header/header';
@@ -69,4 +71,9 @@ FavoritesScreen.propTypes = {
   offers: PropTypes.arrayOf(offerPropType)
 };
 
-export default FavoritesScreen;
+const mapStateToProps = (state) => ({
+  offers: state.favoriteOffers
+});
+
+export {FavoritesScreen};
+export default connect(mapStateToProps, null)(FavoritesScreen);
