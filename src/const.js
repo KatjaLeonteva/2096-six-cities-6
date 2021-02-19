@@ -21,9 +21,14 @@ export const OfferTypes = {
   HOTEL: `Hotel`
 };
 
-export const SortingTypes = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
+export const SortingTypes = {
+  POPULAR: `Popular`,
+  PRICE_ASC: `Price: low to high`,
+  PRICE_DESC: `Price: high to low`,
+  RATING: `Top rated first`
+};
 
-export const cardTypes = {
+export const CardTypes = {
   MAIN: `main`,
   FAVORITES: `favorites`,
   NEARBY: `nearby`

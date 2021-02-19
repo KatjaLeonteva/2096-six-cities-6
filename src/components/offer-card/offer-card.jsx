@@ -4,7 +4,7 @@ import {offerPropType} from '../../prop-types';
 
 import {Link} from 'react-router-dom';
 
-import {cardTypes, OfferTypes} from '../../const';
+import {CardTypes, OfferTypes} from '../../const';
 import {getStarsWidth} from '../../utils';
 
 import cn from 'classnames';
@@ -14,9 +14,9 @@ const OfferCard = (props) => {
   const {offer, cardType, onCardMouseEnter, onCardMouseLeave} = props;
 
   const classModifier = {
-    [cardTypes.MAIN]: `cities__`,
-    [cardTypes.FAVORITES]: `favorites__`,
-    [cardTypes.NEARBY]: `near-places__`
+    [CardTypes.MAIN]: `cities__`,
+    [CardTypes.FAVORITES]: `favorites__`,
+    [CardTypes.NEARBY]: `near-places__`
   };
 
   const handleCardMouseEnter = () => {
@@ -32,10 +32,10 @@ const OfferCard = (props) => {
       }
       <div className={`place-card__image-wrapper ${classModifier[cardType]}image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
-          <img className="place-card__image" src={offer.previewImage} width={cardType === cardTypes.FAVORITES ? `150` : `260`} height={cardType === cardTypes.FAVORITES ? `110` : `200`} alt="Place image" />
+          <img className="place-card__image" src={offer.previewImage} width={cardType === CardTypes.FAVORITES ? `150` : `260`} height={cardType === CardTypes.FAVORITES ? `110` : `200`} alt="Place image" />
         </Link>
       </div>
-      <div className={cn(`place-card__info`, {'favorites__card-info': cardType === cardTypes.FAVORITES})}>
+      <div className={cn(`place-card__info`, {'favorites__card-info': cardType === CardTypes.FAVORITES})}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>
@@ -65,7 +65,7 @@ const OfferCard = (props) => {
 
 OfferCard.propTypes = {
   offer: offerPropType,
-  cardType: PropTypes.oneOf(Object.values(cardTypes)),
+  cardType: PropTypes.oneOf(Object.values(CardTypes)),
   onCardMouseEnter: PropTypes.func,
   onCardMouseLeave: PropTypes.func
 };

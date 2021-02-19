@@ -8,7 +8,7 @@ const initialState = {
   offers,
   cityOffers: getCityOffers(offers, Cities.PARIS),
   favoriteOffers: getFavoriteOffers(offers),
-  sorting: SortingTypes[0]
+  activeSorting: SortingTypes.POPULAR
 };
 
 const reducer = (state = initialState, action) => {
@@ -26,7 +26,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_SORTING:
       return {
         ...state,
-        activeOffer: action.payload
+        activeSorting: action.payload
       };
     default:
       return state;

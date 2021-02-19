@@ -9,7 +9,7 @@ import ReviewsList from '../reviews-list/reviews-list';
 import ReviewForm from '../review-form/review-form';
 import Map from '../map/map';
 
-import {cardTypes, OfferTypes} from '../../const';
+import {CardTypes, OfferTypes} from '../../const';
 import {getStarsWidth} from '../../utils';
 
 import cn from 'classnames';
@@ -102,7 +102,7 @@ const OfferScreen = (props) => {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OffersList offers={offersNearby} cardType={cardTypes.NEARBY}/>
+            <OffersList offers={offersNearby} cardType={CardTypes.NEARBY}/>
           </section>
         </div>
       </main>
