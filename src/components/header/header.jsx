@@ -18,7 +18,7 @@ const Header = () => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <Link className="header__nav-link header__nav-link--profile" to={isAuthorized ? Paths.FAVORITES : Paths.LOGIN}>
+                <Link className="header__nav-link header__nav-link--profile" to={Paths.LOGIN}>
                   <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                   {isAuthorized ?
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
