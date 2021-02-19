@@ -1,5 +1,5 @@
 import {ActionType} from './action';
-import {Cities} from '../const';
+import {Cities, SortingTypes} from '../const';
 import {getCityOffers, getFavoriteOffers} from '../core';
 import offers from '../mocks/offers';
 
@@ -7,7 +7,8 @@ const initialState = {
   activeCity: Cities.PARIS,
   offers,
   cityOffers: getCityOffers(offers, Cities.PARIS),
-  favoriteOffers: getFavoriteOffers(offers)
+  favoriteOffers: getFavoriteOffers(offers),
+  sorting: SortingTypes[0]
 };
 
 const reducer = (state = initialState, action) => {
@@ -21,6 +22,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         cityOffers: getCityOffers(state.offers, state.activeCity)
+      };
+    case ActionType.CHANGE_SORTING:
+      return {
+        ...state,
+        activeOffer: action.payload
       };
     default:
       return state;

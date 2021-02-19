@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {offerPropType} from '../../prop-types';
 
@@ -20,6 +20,16 @@ const MainScreen = (props) => {
   const {activeCity, cityOffers} = props;
   const cityLocation = cityOffers.length ? cityOffers[0].city.location : {};
 
+  const [activeCard, setActiveCard] = useState(null);
+
+  const handleCardMouseEnter = (selectedCard) => {
+    setActiveCard(selectedCard);
+  };
+
+  const handleCardMouseLeave = () => {
+    setActiveCard(null);
+  };
+
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -38,11 +48,16 @@ const MainScreen = (props) => {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{cityOffers.length} places to stay in {activeCity}</b>
                 <OffersSorting />
-                <OffersList offers={cityOffers} cardType={cardTypes.MAIN}/>
+                <OffersList
+                  offers={cityOffers}
+                  cardType={cardTypes.MAIN}
+                  onCardMouseEnter={handleCardMouseEnter}
+                  onCardMouseLeave={handleCardMouseLeave}
+                />
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map city={cityLocation} points={cityOffers} />
+                  <Map city={cityLocation} points={cityOffers} activePoint={activeCard} />
                 </section>
               </div>
             </div>

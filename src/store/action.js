@@ -1,6 +1,7 @@
 export const ActionType = {
   CHANGE_CITY: `common/changeCity`,
-  SET_CITY_OFFERS: `common/filterOffers`
+  SET_CITY_OFFERS: `common/setCityOffers`,
+  CHANGE_SORTING: `common/changeSorting`
 };
 
 export const ActionCreator = {
@@ -10,5 +11,9 @@ export const ActionCreator = {
   }),
   setCityOffers: () => ({
     type: ActionType.SET_CITY_OFFERS
+  }),
+  changeSorting: (sorting) => ({
+    type: ActionType.CHANGE_SORTING,
+    payload: sorting
   })
 };

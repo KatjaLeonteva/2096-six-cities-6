@@ -6,12 +6,18 @@ import {locationPropType, offerPropType} from '../../prop-types';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+
 const Map = (props) => {
-  const {city, points} = props;
+  const {city, points, activePoint} = props;
   const mapRef = useRef();
 
-  const icon = leaflet.icon({
+  const simpleIcon = leaflet.icon({
     iconUrl: `img/pin.svg`,
+    iconSize: [27, 39]
+  });
+
+  const activeIcon = leaflet.icon({
+    iconUrl: `img/pin-active.svg`,
     iconSize: [27, 39]
   });
 
@@ -27,18 +33,31 @@ const Map = (props) => {
       })
       .addTo(mapRef.current);
 
-    points.forEach((point) => {
-      leaflet
-        .marker([point.location.latitude, point.location.longitude], {icon})
-        .addTo(mapRef.current)
-        .bindPopup(point.title);
-    });
-
     return () => {
       mapRef.current.remove();
     };
 
-  }, [points]);
+  }, [city]);
+
+  useEffect(() => {
+    const markers = [];
+
+    points.forEach((point) => {
+      const icon = (activePoint && (point.id === activePoint.id)) ? activeIcon : simpleIcon;
+
+      markers.push(
+          leaflet
+            .marker([point.location.latitude, point.location.longitude], {icon})
+            .addTo(mapRef.current)
+            .bindPopup(`<a href="offer/${point.id}">${point.title}</a>`)
+      );
+    });
+
+    return () => {
+      markers.forEach((marker) => mapRef.current.removeLayer(marker));
+    };
+
+  }, [points, activePoint]);
 
   return (
     <div id="map" style={{height: `100%`}} ref={mapRef}></div>
@@ -47,7 +66,8 @@ const Map = (props) => {
 
 Map.propTypes = {
   city: locationPropType,
-  points: PropTypes.arrayOf(offerPropType)
+  points: PropTypes.arrayOf(offerPropType),
+  activePoint: offerPropType
 };
 
 export default Map;

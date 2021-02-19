@@ -11,7 +11,7 @@ import cn from 'classnames';
 
 
 const OfferCard = (props) => {
-  const {offer, cardType, onMouseEnter, onMouseLeave} = props;
+  const {offer, cardType, onCardMouseEnter, onCardMouseLeave} = props;
 
   const classModifier = {
     [cardTypes.MAIN]: `cities__`,
@@ -19,12 +19,12 @@ const OfferCard = (props) => {
     [cardTypes.NEARBY]: `near-places__`
   };
 
-  const handleMouseEnter = () => {
-    onMouseEnter(offer);
+  const handleCardMouseEnter = () => {
+    onCardMouseEnter(offer);
   };
 
   return (
-    <article className={`place-card ${classModifier[cardType]}place-card`} onMouseEnter={handleMouseEnter} onMouseLeave={onMouseLeave}>
+    <article className={`place-card ${classModifier[cardType]}place-card`} onMouseEnter={handleCardMouseEnter} onMouseLeave={onCardMouseLeave}>
       {offer.isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
@@ -66,13 +66,13 @@ const OfferCard = (props) => {
 OfferCard.propTypes = {
   offer: offerPropType,
   cardType: PropTypes.oneOf(Object.values(cardTypes)),
-  onMouseEnter: PropTypes.func,
-  onMouseLeave: PropTypes.func
+  onCardMouseEnter: PropTypes.func,
+  onCardMouseLeave: PropTypes.func
 };
 
 OfferCard.defaultProps = {
-  onMouseEnter: () => {},
-  onMouseLeave: () => {}
+  onCardMouseEnter: () => {},
+  onCardMouseLeave: () => {}
 };
 
 export default OfferCard;
