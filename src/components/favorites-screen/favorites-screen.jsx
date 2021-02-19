@@ -17,7 +17,6 @@ import {CardTypes} from '../../const';
 import cn from 'classnames';
 
 
-
 const FavoritesScreen = (props) => {
   const {offers} = props;
   const offersByCity = offers.reduce((acc, cur) => {
