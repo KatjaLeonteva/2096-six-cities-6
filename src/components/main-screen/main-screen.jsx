@@ -12,6 +12,7 @@ import Map from '../map/map';
 import MainEmpty from '../main-empty/main-empty';
 
 import {Cities, cardTypes} from '../../const';
+import {getCityOffers} from '../../core';
 
 import cn from 'classnames';
 
@@ -62,7 +63,7 @@ MainScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
-  cityOffers: state.cityOffers
+  cityOffers: getCityOffers(state.offers, state.activeCity)
 });
 
 export {MainScreen};
