@@ -11,10 +11,10 @@ import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import MainEmpty from '../main-empty/main-empty';
 
-import cn from 'classnames';
-
 import {Cities, CardTypes} from '../../const';
-import {sortOffers} from '../../core';
+import {getCityOffers, sortOffers} from '../../core';
+
+import cn from 'classnames';
 
 
 const MainScreen = (props) => {
@@ -78,7 +78,7 @@ MainScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
-  cityOffers: sortOffers(state.cityOffers, state.activeSorting)
+  cityOffers: sortOffers(getCityOffers(state.offers, state.activeCity), state.activeSorting)
 });
 
 export {MainScreen};

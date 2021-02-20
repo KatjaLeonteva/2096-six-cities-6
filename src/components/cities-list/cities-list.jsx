@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {connect} from 'react-redux';
@@ -21,9 +20,9 @@ const CitiesList = (props) => {
     <ul className="locations__list tabs__list">
       {Object.values(Cities).map((city) => (
         <li className="locations__item" key={city} onClick={handleCityClick}>
-          <Link className={cn(`locations__item-link tabs__item`, {'tabs__item--active': city === activeCity})} to="/">
+          <a className={cn(`locations__item-link tabs__item`, {'tabs__item--active': city === activeCity})} href="#">
             <span>{city}</span>
-          </Link>
+          </a>
         </li>
       ))}
     </ul>
@@ -42,7 +41,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onChangeCity(city) {
     dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.setCityOffers());
   },
 });
 

@@ -13,6 +13,7 @@ import OffersList from '../offers-list/offers-list';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
 
 import {CardTypes} from '../../const';
+import {getFavoriteOffers} from '../../core';
 
 import cn from 'classnames';
 
@@ -66,7 +67,7 @@ FavoritesScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.favoriteOffers
+  offers: getFavoriteOffers(state.offers)
 });
 
 export {FavoritesScreen};
