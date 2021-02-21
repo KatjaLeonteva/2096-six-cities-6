@@ -1,7 +1,9 @@
 import React, {useRef, useEffect} from 'react';
 
 import PropTypes from 'prop-types';
-import {locationPropType, offerPropType} from '../../prop-types';
+import {offerPropType} from '../../prop-types';
+
+import {Cities, Coordinates} from '../../const';
 
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -9,6 +11,7 @@ import 'leaflet/dist/leaflet.css';
 
 const Map = (props) => {
   const {city, points, activePoint} = props;
+  const coords = Coordinates[city];
   const mapRef = useRef();
 
   const simpleIcon = leaflet.icon({
@@ -23,8 +26,8 @@ const Map = (props) => {
 
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
-      center: [city.latitude, city.longitude],
-      zoom: city.zoom
+      center: [coords.latitude, coords.longitude],
+      zoom: coords.zoom
     });
 
     leaflet
@@ -65,7 +68,7 @@ const Map = (props) => {
 };
 
 Map.propTypes = {
-  city: locationPropType,
+  city: PropTypes.oneOf(Object.values(Cities)),
   points: PropTypes.arrayOf(offerPropType),
   activePoint: offerPropType
 };

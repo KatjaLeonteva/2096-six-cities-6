@@ -19,8 +19,6 @@ import cn from 'classnames';
 
 const MainScreen = (props) => {
   const {activeCity, cityOffers} = props;
-  const cityLocation = cityOffers.length ? cityOffers[0].city.location : {};
-
   const [activeCard, setActiveCard] = useState(null);
 
   const handleCardMouseEnter = (selectedCard) => {
@@ -58,7 +56,7 @@ const MainScreen = (props) => {
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map city={cityLocation} points={cityOffers} activePoint={activeCard} />
+                  <Map city={activeCity} points={cityOffers} activePoint={activeCard} />
                 </section>
               </div>
             </div>
