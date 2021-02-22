@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {useHistory} from 'react-router-dom';
+
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 
@@ -10,17 +12,19 @@ import cn from 'classnames';
 
 const CitiesList = (props) => {
   const {activeCity, onChangeCity} = props;
+  const history = useHistory();
 
   const handleCityClick = (evt) => {
     evt.preventDefault();
     onChangeCity(evt.target.innerText);
+    history.push(`/`);
   };
 
   return (
     <ul className="locations__list tabs__list">
       {Object.values(Cities).map((city) => (
-        <li className="locations__item" key={city} onClick={handleCityClick}>
-          <a className={cn(`locations__item-link tabs__item`, {'tabs__item--active': city === activeCity})} href="#">
+        <li className="locations__item" key={city}>
+          <a className={cn(`locations__item-link tabs__item`, {'tabs__item--active': city === activeCity})} href="#" onClick={handleCityClick}>
             <span>{city}</span>
           </a>
         </li>
