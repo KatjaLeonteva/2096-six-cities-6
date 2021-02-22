@@ -1,12 +1,16 @@
 import React, {useState, useEffect, createRef} from 'react';
+import PropTypes from 'prop-types';
+
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/action';
 
 import {SortingTypes} from '../../const';
 
 import cn from 'classnames';
 
-const OffersSorting = () => {
+const OffersSorting = (props) => {
+  const {activeSorting, onChangeSorting} = props;
   const [opened, setOpened] = useState(false);
-  const [active, setActive] = useState(SortingTypes[0]);
   const formNode = createRef();
 
   const handleDropdownClick = () => {
@@ -14,7 +18,7 @@ const OffersSorting = () => {
   };
 
   const handleItemClick = (evt) => {
-    setActive(evt.target.innerText);
+    onChangeSorting(evt.target.innerText);
     setOpened(false);
   };
 
@@ -37,18 +41,34 @@ const OffersSorting = () => {
     <form className="places__sorting" action="#" method="get" ref={formNode} style={{display: `inline-block`}}>
       <span className="places__sorting-caption">Sort by&nbsp;</span>
       <span className="places__sorting-type" tabIndex="0" onClick={handleDropdownClick}>
-        {active}
+        {activeSorting}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
       <ul className={cn(`places__options places__options--custom`, {'places__options--opened': opened})}>
-        {SortingTypes.map((item, i) => (
-          <li className={cn(`places__option`, {'places__option--active': active === item})} tabIndex="0" key={`sorting${i}`} onClick={handleItemClick}>{item}</li>
+        {Object.values(SortingTypes).map((item, i) => (
+          <li className={cn(`places__option`, {'places__option--active': activeSorting === item})} tabIndex="0" key={`sorting${i}`} onClick={handleItemClick}>{item}</li>
         ))}
       </ul>
     </form>
   );
 };
 
-export default OffersSorting;
+OffersSorting.propTypes = {
+  activeSorting: PropTypes.oneOf(Object.values(SortingTypes)),
+  onChangeSorting: PropTypes.func,
+};
+
+const mapStateToProps = (state) => ({
+  activeSorting: state.activeSorting
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onChangeSorting(sortingType) {
+    dispatch(ActionCreator.changeSorting(sortingType));
+  },
+});
+
+export {OffersSorting};
+export default connect(mapStateToProps, mapDispatchToProps)(OffersSorting);

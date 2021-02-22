@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {offerPropType} from '../../prop-types';
 
@@ -11,15 +11,23 @@ import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import MainEmpty from '../main-empty/main-empty';
 
-import {Cities, cardTypes} from '../../const';
-import {getCityOffers} from '../../core';
+import {Cities, CardTypes} from '../../const';
+import {getCityOffers, sortOffers} from '../../core';
 
 import cn from 'classnames';
 
 
 const MainScreen = (props) => {
   const {activeCity, cityOffers} = props;
-  const cityLocation = cityOffers.length ? cityOffers[0].city.location : {};
+  const [activeCard, setActiveCard] = useState(null);
+
+  const handleCardMouseEnter = (selectedCard) => {
+    setActiveCard(selectedCard);
+  };
+
+  const handleCardMouseLeave = () => {
+    setActiveCard(null);
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -39,11 +47,16 @@ const MainScreen = (props) => {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{cityOffers.length} places to stay in {activeCity}</b>
                 <OffersSorting />
-                <OffersList offers={cityOffers} cardType={cardTypes.MAIN}/>
+                <OffersList
+                  offers={cityOffers}
+                  cardType={CardTypes.MAIN}
+                  onCardMouseEnter={handleCardMouseEnter}
+                  onCardMouseLeave={handleCardMouseLeave}
+                />
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map city={cityLocation} points={cityOffers} />
+                  <Map city={activeCity} points={cityOffers} activePoint={activeCard} />
                 </section>
               </div>
             </div>
@@ -63,7 +76,7 @@ MainScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
-  cityOffers: getCityOffers(state.offers, state.activeCity)
+  cityOffers: sortOffers(getCityOffers(state.offers, state.activeCity), state.activeSorting)
 });
 
 export {MainScreen};

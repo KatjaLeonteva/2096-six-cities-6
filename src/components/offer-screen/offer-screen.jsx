@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import PropTypes from 'prop-types';
 import {reviewPropType, offerPropType} from '../../prop-types';
+
+import {useLocation} from 'react-router-dom';
 
 import Header from '../header/header';
 import OffersList from '../offers-list/offers-list';
@@ -9,7 +11,7 @@ import ReviewsList from '../reviews-list/reviews-list';
 import ReviewForm from '../review-form/review-form';
 import Map from '../map/map';
 
-import {cardTypes, OfferTypes} from '../../const';
+import {CardTypes, OfferTypes} from '../../const';
 import {getStarsWidth} from '../../utils';
 
 import cn from 'classnames';
@@ -17,6 +19,11 @@ import cn from 'classnames';
 
 const OfferScreen = (props) => {
   const {offer, reviews, offersNearby, isAuthorized} = props;
+  const {pathname} = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div className="page">
@@ -95,14 +102,14 @@ const OfferScreen = (props) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map city={offer.city.location} points={offersNearby} />
+            <Map city={offer.city.name} points={offersNearby} />
           </section>
         </section>
 
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OffersList offers={offersNearby} cardType={cardTypes.NEARBY}/>
+            <OffersList offers={offersNearby} cardType={CardTypes.NEARBY}/>
           </section>
         </div>
       </main>

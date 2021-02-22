@@ -10,8 +10,9 @@ import {Link} from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import OffersList from '../offers-list/offers-list';
+import FavoritesEmpty from '../favorites-empty/favorites-empty';
 
-import {cardTypes} from '../../const';
+import {CardTypes} from '../../const';
 import {getFavoriteOffers} from '../../core';
 
 import cn from 'classnames';
@@ -44,21 +45,14 @@ const FavoritesScreen = (props) => {
                           </Link>
                         </div>
                       </div>
-                      <OffersList offers={savedOffers} cardType={cardTypes.FAVORITES}/>
+                      <OffersList offers={savedOffers} cardType={CardTypes.FAVORITES}/>
                     </li>
                   );
                 })}
               </ul>
             </section>
             :
-            <section className="favorites favorites--empty">
-              <h1 className="visually-hidden">Favorites (empty)</h1>
-              <div className="favorites__status-wrapper">
-                <b className="favorites__status">Nothing yet saved.</b>
-                <p className="favorites__status-description">Save properties to narrow down search or plan your future
-                  trips.</p>
-              </div>
-            </section>
+            <FavoritesEmpty />
           }
         </div>
       </main>
