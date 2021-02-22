@@ -2,7 +2,7 @@ import React, {useState, useEffect, createRef} from 'react';
 
 import {SortingTypes} from '../../const';
 
-import classnames from 'classnames';
+import cn from 'classnames';
 
 const OffersSorting = () => {
   const [opened, setOpened] = useState(false);
@@ -26,11 +26,7 @@ const OffersSorting = () => {
   };
 
   useEffect(() => {
-    if (opened) {
-      document.addEventListener(`mousedown`, handleClickOutside);
-    } else {
-      document.removeEventListener(`mousedown`, handleClickOutside);
-    }
+    document[opened ? `addEventListener` : `removeEventListener`](`mousedown`, handleClickOutside);
 
     return () => {
       document.removeEventListener(`mousedown`, handleClickOutside);
@@ -46,9 +42,9 @@ const OffersSorting = () => {
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className={classnames(`places__options places__options--custom`, {'places__options--opened': opened})}>
+      <ul className={cn(`places__options places__options--custom`, {'places__options--opened': opened})}>
         {SortingTypes.map((item, i) => (
-          <li className={classnames(`places__option`, {'places__option--active': active === item})} tabIndex="0" key={`sorting${i}`} onClick={handleItemClick}>{item}</li>
+          <li className={cn(`places__option`, {'places__option--active': active === item})} tabIndex="0" key={`sorting${i}`} onClick={handleItemClick}>{item}</li>
         ))}
       </ul>
     </form>

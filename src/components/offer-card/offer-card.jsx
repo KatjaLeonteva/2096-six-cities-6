@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 import {cardTypes, OfferTypes} from '../../const';
 import {getStarsWidth} from '../../utils';
 
-import classnames from 'classnames';
+import cn from 'classnames';
 
 
 const OfferCard = (props) => {
@@ -35,13 +35,13 @@ const OfferCard = (props) => {
           <img className="place-card__image" src={offer.previewImage} width={cardType === cardTypes.FAVORITES ? `150` : `260`} height={cardType === cardTypes.FAVORITES ? `110` : `200`} alt="Place image" />
         </Link>
       </div>
-      <div className={classnames(`place-card__info`, {'favorites__card-info': cardType === cardTypes.FAVORITES})}>
+      <div className={cn(`place-card__info`, {'favorites__card-info': cardType === cardTypes.FAVORITES})}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&nbsp;&#47;&nbsp;night</span>
           </div>
-          <button className={classnames(`place-card__bookmark-button button`, {'place-card__bookmark-button--active': offer.isFavorite})} type="button">
+          <button className={cn(`place-card__bookmark-button button`, {'place-card__bookmark-button--active': offer.isFavorite})} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -65,7 +65,7 @@ const OfferCard = (props) => {
 
 OfferCard.propTypes = {
   offer: offerPropType,
-  cardType: PropTypes.oneOf(cardTypes),
+  cardType: PropTypes.oneOf(Object.values(cardTypes)),
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func
 };

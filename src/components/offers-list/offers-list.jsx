@@ -6,7 +6,7 @@ import OfferCard from '../offer-card/offer-card';
 
 import {cardTypes} from '../../const';
 
-import classnames from 'classnames';
+import cn from 'classnames';
 
 
 const OffersList = (props) => {
@@ -22,11 +22,13 @@ const OffersList = (props) => {
   };
 
   return (
-    <div className={classnames(
-        `places__list`,
-        {'cities__places-list tabs__content': cardType === cardTypes.MAIN},
-        {'near-places__list': cardType === cardTypes.NEARBY},
-        {'favorites__places': cardType === cardTypes.FAVORITES}
+    <div className={cn(
+        {
+          'places__list': true,
+          'cities__places-list tabs__content': cardType === cardTypes.MAIN,
+          'near-places__list': cardType === cardTypes.NEARBY,
+          'favorites__places': cardType === cardTypes.FAVORITES
+        }
     )}>
       {offers.map((offer) => (
         <OfferCard
@@ -43,7 +45,7 @@ const OffersList = (props) => {
 
 OffersList.propTypes = {
   offers: PropTypes.arrayOf(offerPropType),
-  cardType: PropTypes.oneOf(cardTypes)
+  cardType: PropTypes.oneOf(Object.values(cardTypes))
 };
 
 export default OffersList;

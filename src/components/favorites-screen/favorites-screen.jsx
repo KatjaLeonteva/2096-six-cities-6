@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {offerPropType} from '../../prop-types';
 
+import {connect} from 'react-redux';
+
 import {Link} from 'react-router-dom';
 
 import Header from '../header/header';
@@ -10,8 +12,9 @@ import Footer from '../footer/footer';
 import OffersList from '../offers-list/offers-list';
 
 import {cardTypes} from '../../const';
+import {getFavoriteOffers} from '../../core';
 
-import classnames from 'classnames';
+import cn from 'classnames';
 
 
 const FavoritesScreen = (props) => {
@@ -22,10 +25,10 @@ const FavoritesScreen = (props) => {
   }, {});
 
   return (
-    <div className={classnames(`page`, {'page--favorites-empty': !offers.length})}>
+    <div className={cn(`page`, {'page--favorites-empty': !offers.length})}>
       <Header />
 
-      <main className={classnames(`page__main page__main--favorites`, {'page__main--favorites-empty': !offers.length})}>
+      <main className={cn(`page__main page__main--favorites`, {'page__main--favorites-empty': !offers.length})}>
         <div className="page__favorites-container container">
           {offers.length ?
             <section className="favorites">
@@ -69,4 +72,9 @@ FavoritesScreen.propTypes = {
   offers: PropTypes.arrayOf(offerPropType)
 };
 
-export default FavoritesScreen;
+const mapStateToProps = (state) => ({
+  offers: getFavoriteOffers(state.offers)
+});
+
+export {FavoritesScreen};
+export default connect(mapStateToProps, null)(FavoritesScreen);
