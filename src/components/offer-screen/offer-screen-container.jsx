@@ -13,6 +13,7 @@ import {AuthorizationStatus} from '../../const';
 const OfferScreenContainer = (props) => {
   const {offers, reviews, authStatus} = props;
   const {id} = useParams();
+  const isAuthorized = authStatus === AuthorizationStatus.AUTH;
 
   const offer = offers.find((item) => item.id === +id);
   const offersNearby = [offers[1], offers[2], offers[3]];
@@ -21,7 +22,7 @@ const OfferScreenContainer = (props) => {
     return <Redirect to="/" />;
   }
 
-  return <OfferScreen offer={offer} reviews={reviews} offersNearby={offersNearby} isAuthorized={authStatus === AuthorizationStatus.AUTH} />;
+  return <OfferScreen offer={offer} reviews={reviews} offersNearby={offersNearby} isAuthorized={isAuthorized} />;
 };
 
 OfferScreenContainer.propTypes = {
