@@ -29,9 +29,7 @@ const App = (props) => {
         <Route exact path={AppRoutes.OFFER}>
           <OfferScreenContainer reviews={reviews} />
         </Route>
-        <PrivateRoute exact path={AppRoutes.FAVORITES}>
-          <FavoritesScreen />
-        </PrivateRoute>
+        <PrivateRoute exact path={AppRoutes.FAVORITES} render={() => <FavoritesScreen />} />
         <Route>
           <NotFoundScreen />
         </Route>

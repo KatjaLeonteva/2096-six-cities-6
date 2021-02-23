@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {authInfoPropType} from '../../prop-types';
 
 import {connect} from 'react-redux';
 
@@ -8,7 +9,7 @@ import {AppRoutes, AuthorizationStatus} from '../../const';
 
 
 const Header = (props) => {
-  const {authStatus} = props;
+  const {authStatus, authInfo} = props;
 
   return (
     <header className="header">
@@ -25,7 +26,7 @@ const Header = (props) => {
                 <Link className="header__nav-link header__nav-link--profile" to={AppRoutes.LOGIN}>
                   <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                   {authStatus === AuthorizationStatus.AUTH ?
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__user-name user__name">{authInfo.email}</span>
                     :
                     <span className="header__login">Sign in</span>
                   }
@@ -40,11 +41,13 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-  authStatus: PropTypes.oneOf(Object.values(AuthorizationStatus))
+  authStatus: PropTypes.oneOf(Object.values(AuthorizationStatus)),
+  authInfo: authInfoPropType
 };
 
 const mapStateToProps = (state) => ({
   authStatus: state.authorizationStatus,
+  authInfo: state.authInfo
 });
 
 export default connect(mapStateToProps)(Header);

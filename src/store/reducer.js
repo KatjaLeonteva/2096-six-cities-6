@@ -7,6 +7,7 @@ const initialState = {
   activeCity: Cities.PARIS,
   activeSorting: SortingTypes.POPULAR,
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  authInfo: {},
   isOffersDataLoaded: false
 };
 
@@ -32,6 +33,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         offers: adaptOffersData(action.payload),
         isOffersDataLoaded: true
+      };
+    case ActionType.SET_AUTH_INFO:
+      return {
+        ...state,
+        authInfo: action.payload
+      };
+    case ActionType.CLEAR_AUTH_INFO:
+      return {
+        ...state,
+        authInfo: {}
       };
     default:
       return state;
