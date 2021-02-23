@@ -1,9 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Spinner = () => {
+const Spinner = ({text = `Loading...`}) => {
   return (
-    <div>Loading...</div>
+    <div>{text}</div>
   );
+};
+
+Spinner.propTypes = {
+  text: PropTypes.string
 };
 
 export default Spinner;

@@ -2,7 +2,10 @@ export const ActionType = {
   CHANGE_CITY: `common/changeCity`,
   CHANGE_SORTING: `common/changeSorting`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
-  LOAD_OFFERS: `data/loadOffers`
+  REDIRECT_TO_ROUTE: `common/redirectToRoute`,
+  LOAD_OFFERS: `data/loadOffers`,
+  SET_AUTH_INFO: `user/login`,
+  CLEAR_AUTH_INFO: `user/logout`
 };
 
 export const ActionCreator = {
@@ -21,5 +24,16 @@ export const ActionCreator = {
   loadOffers: (offers) => ({
     type: ActionType.LOAD_OFFERS,
     payload: offers
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url
+  }),
+  setAuthInfo: (info) => ({
+    type: ActionType.SET_AUTH_INFO,
+    payload: info
+  }),
+  clearAuthInfo: () => ({
+    type: ActionType.CLEAR_AUTH_INFO
   })
 };

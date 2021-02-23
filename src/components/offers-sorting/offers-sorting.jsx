@@ -48,7 +48,12 @@ const OffersSorting = (props) => {
       </span>
       <ul className={cn(`places__options places__options--custom`, {'places__options--opened': opened})}>
         {Object.values(SortingTypes).map((item) => (
-          <li className={cn(`places__option`, {'places__option--active': activeSorting === item})} tabIndex="0" key={item} onClick={handleItemClick}>{item}</li>
+          <li
+            className={cn(`places__option`, {'places__option--active': activeSorting === item})}
+            tabIndex="0"
+            key={item}
+            onClick={handleItemClick}>{item}
+          </li>
         ))}
       </ul>
     </form>
