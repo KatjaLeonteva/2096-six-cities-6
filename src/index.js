@@ -24,6 +24,7 @@ const store = createStore(reducer, composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
     applyMiddleware(redirect)
 ));
+
 store.dispatch(checkAuth());
 
 ReactDOM.render(

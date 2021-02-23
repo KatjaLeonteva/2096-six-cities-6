@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Spinner = () => {
+const Spinner = (text = `Loading...`) => {
   return (
-    <div>Loading...</div>
+    <div>{text}</div>
   );
 };
 

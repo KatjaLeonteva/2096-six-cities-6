@@ -10,6 +10,7 @@ import {AppRoutes, AuthorizationStatus} from '../../const';
 
 const Header = (props) => {
   const {authStatus, authInfo} = props;
+  const isAuthorized = authStatus === AuthorizationStatus.AUTH;
 
   return (
     <header className="header">
@@ -25,7 +26,7 @@ const Header = (props) => {
               <li className="header__nav-item user">
                 <Link className="header__nav-link header__nav-link--profile" to={AppRoutes.LOGIN}>
                   <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                  {authStatus === AuthorizationStatus.AUTH ?
+                  {isAuthorized ?
                     <span className="header__user-name user__name">{authInfo.email}</span>
                     :
                     <span className="header__login">Sign in</span>

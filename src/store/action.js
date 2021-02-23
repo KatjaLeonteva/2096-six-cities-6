@@ -35,5 +35,5 @@ export const ActionCreator = {
   }),
   clearAuthInfo: () => ({
     type: ActionType.CLEAR_AUTH_INFO
-  }),
+  })
 };
