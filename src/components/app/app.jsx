@@ -9,7 +9,7 @@ import FavoritesScreen from '../favorites-screen/favorites-screen';
 import OfferScreenContainer from '../offer-screen/offer-screen-container';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-import {Paths} from '../../const';
+import {AppRoutes} from '../../const';
 
 
 const App = (props) => {
@@ -18,16 +18,16 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={Paths.MAIN}>
+        <Route exact path={AppRoutes.MAIN}>
           <MainScreen />
         </Route>
-        <Route exact path={Paths.LOGIN}>
+        <Route exact path={AppRoutes.LOGIN}>
           <SignInScreen />
         </Route>
-        <Route exact path={Paths.FAVORITES}>
+        <Route exact path={AppRoutes.FAVORITES}>
           <FavoritesScreen />
         </Route>
-        <Route exact path={Paths.OFFER}>
+        <Route exact path={AppRoutes.OFFER}>
           <OfferScreenContainer reviews={reviews} />
         </Route>
         <Route>

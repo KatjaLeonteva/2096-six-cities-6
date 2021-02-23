@@ -47,8 +47,8 @@ const OffersSorting = (props) => {
         </svg>
       </span>
       <ul className={cn(`places__options places__options--custom`, {'places__options--opened': opened})}>
-        {Object.values(SortingTypes).map((item, i) => (
-          <li className={cn(`places__option`, {'places__option--active': activeSorting === item})} tabIndex="0" key={`sorting${i}`} onClick={handleItemClick}>{item}</li>
+        {Object.values(SortingTypes).map((item) => (
+          <li className={cn(`places__option`, {'places__option--active': activeSorting === item})} tabIndex="0" key={item} onClick={handleItemClick}>{item}</li>
         ))}
       </ul>
     </form>

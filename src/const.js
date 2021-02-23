@@ -1,4 +1,4 @@
-export const Paths = {
+export const AppRoutes = {
   MAIN: `/`,
   LOGIN: `/login`,
   FAVORITES: `/favorites`,
@@ -89,3 +89,23 @@ export const RATING = [
     title: `terrible`
   }
 ];
+
+export const APIRoutes = {
+  OFFERS: `/hotels`,
+  OFFER: `/hotels/:id`,
+  OFFERS_NEARBY: `/hotels/:hotel_id/nearby`,
+  FAVORITES: `/favorite`,
+  REVIEWS: `/comments/:hotel_id`,
+  LOGIN: `/login`,
+  LOGOUT: `/logout`
+};
+
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
+export const ResponseType = {
+  SUCCESS: `SUCCESS`,
+  ERROR: `ERROR`,
+};
