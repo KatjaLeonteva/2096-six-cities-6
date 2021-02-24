@@ -1,40 +1,58 @@
-import React from 'react';
-import {Redirect, useParams} from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {useParams} from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 import {reviewPropType, offerPropType} from '../../prop-types';
 
 import {connect} from 'react-redux';
+import {fetchOfferById, fetchNearby, fetchReviews} from '../../store/offer/api-actions';
 
 import OfferScreen from './offer-screen';
 import {AuthorizationStatus} from '../../const';
+import Spinner from '../spinner/spinner';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 
 const OfferScreenContainer = (props) => {
-  const {offers, reviews, authStatus} = props;
+  const {authStatus, onLoadOfferData, offer, reviews, nearby, offerNotFound} = props;
   const {id} = useParams();
   const isAuthorized = authStatus === AuthorizationStatus.AUTH;
 
-  const offer = offers.find((item) => item.id === +id);
-  const offersNearby = [offers[1], offers[2], offers[3]];
+  useEffect(() => {
+    onLoadOfferData(id);
+  }, [id]);
 
-  if (!offer) {
-    return <Redirect to="/" />;
+  if (offerNotFound) {
+    return <NotFoundScreen />;
   }
 
-  return <OfferScreen offer={offer} reviews={reviews} offersNearby={offersNearby} isAuthorized={isAuthorized} />;
+  return (!offer ? <Spinner /> : <OfferScreen offer={offer} reviews={reviews} offersNearby={nearby} isAuthorized={isAuthorized} />);
 };
 
 OfferScreenContainer.propTypes = {
-  offers: PropTypes.arrayOf(offerPropType),
+  authStatus: PropTypes.oneOf(Object.values(AuthorizationStatus)),
+  onLoadOfferData: PropTypes.func,
+  offer: offerPropType,
   reviews: PropTypes.arrayOf(reviewPropType),
-  authStatus: PropTypes.oneOf(Object.values(AuthorizationStatus))
+  nearby: PropTypes.arrayOf(offerPropType),
+  offerNotFound: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.main.offers,
   authStatus: state.user.authorizationStatus,
+  offer: state.offer.offer,
+  reviews: state.offer.reviews,
+  nearby: state.offer.nearby,
+  offerNotFound: state.offer.offerNotFound
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadOfferData(id) {
+    dispatch(fetchOfferById(id));
+    dispatch(fetchReviews(id));
+    dispatch(fetchNearby(id));
+  },
 });
 
 export {OfferScreenContainer};
-export default connect(mapStateToProps, null)(OfferScreenContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(OfferScreenContainer);
