@@ -20,5 +20,5 @@ export const fetchNearby = (id) => (dispatch, _getState, api) => (
 
 export const sendReview = ({id, review}) => (dispatch, _getState, api) => (
   api.post(`/comments/${id}`, review)
-    .then(({data}) => console.log(data))
+    .then(({data}) => dispatch(ActionCreator.loadReviews(data)))
 );

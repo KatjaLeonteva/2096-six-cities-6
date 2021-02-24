@@ -1,12 +1,16 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
+
+import {connect} from 'react-redux';
+import {sendReview} from '../../store/offer/api-actions';
 
 import {RATING} from '../../const';
 
-const ReviewForm = () => {
-  const [reviewForm, setReviewForm] = useState({
-    'rating': null,
-    'review': ``
-  });
+
+const ReviewForm = (props) => {
+  const {id, onSubmit} = props;
+  const initialState = {'rating': null, 'comment': ``};
+  const [reviewForm, setReviewForm] = useState(initialState);
 
   const handleFieldChange = (evt) => {
     const {name, value} = evt.target;
@@ -15,6 +19,10 @@ const ReviewForm = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    onSubmit({id, review: reviewForm});
+
+    // TODO: Reset form only on success
+    setReviewForm({...reviewForm, ...initialState});
   };
 
   return (
@@ -23,7 +31,15 @@ const ReviewForm = () => {
       <div className="reviews__rating-form form__rating">
         {RATING.map(({value, title}) => (
           <React.Fragment key={value}>
-            <input className="form__rating-input visually-hidden" name="rating" value={value} id={`${value}-stars`} type="radio" onChange={handleFieldChange} />
+            <input
+              className="form__rating-input visually-hidden"
+              name="rating"
+              value={value}
+              id={`${value}-stars`}
+              type="radio"
+              onChange={handleFieldChange}
+              checked={value === +reviewForm.rating}
+            />
             <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title={title}>
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
@@ -33,9 +49,9 @@ const ReviewForm = () => {
         ))}
       </div>
 
-      <textarea className="reviews__textarea form__textarea" id="review" name="review"
+      <textarea className="reviews__textarea form__textarea" id="comment" name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        value={reviewForm.text}
+        value={reviewForm.comment}
         onChange={handleFieldChange} />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -48,4 +64,16 @@ const ReviewForm = () => {
   );
 };
 
-export default ReviewForm;
+ReviewForm.propTypes = {
+  id: PropTypes.number.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit({id, review}) {
+    dispatch(sendReview({id, review}));
+  }
+});
+
+export {ReviewForm};
+export default connect(null, mapDispatchToProps)(ReviewForm);

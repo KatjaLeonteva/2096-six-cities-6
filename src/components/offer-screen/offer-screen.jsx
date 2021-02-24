@@ -97,7 +97,7 @@ const OfferScreen = (props) => {
 
               <section className="property__reviews reviews">
                 <ReviewsList reviews={reviews} />
-                {isAuthorized && <ReviewForm />}
+                {isAuthorized && <ReviewForm id={offer.id} />}
               </section>
             </div>
           </div>

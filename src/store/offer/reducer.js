@@ -1,5 +1,5 @@
 import {ActionType} from './action';
-import {adaptOfferData, adaptOffersData} from '../../services/adapter';
+import {adaptOfferData, adaptOffersData, adaptReviewsData} from '../../services/adapter';
 
 const initialState = {
   offer: null,
@@ -19,7 +19,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_REVIEWS:
       return {
         ...state,
-        reviews: action.payload
+        reviews: adaptReviewsData(action.payload)
       };
     case ActionType.LOAD_NEARBY:
       return {
