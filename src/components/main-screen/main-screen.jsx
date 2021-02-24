@@ -4,6 +4,7 @@ import {offerPropType} from '../../prop-types';
 
 import {connect} from 'react-redux';
 import {fetchOffers} from '../../store/main/api-actions';
+import {getSortedCityOffers} from '../../store/main/selector';
 
 import Header from '../header/header';
 import CitiesList from '../cities-list/cities-list';
@@ -14,7 +15,6 @@ import MainEmpty from '../main-empty/main-empty';
 import Spinner from '../spinner/spinner';
 
 import {Cities, CardTypes} from '../../const';
-import {getCityOffers, sortOffers} from '../../core';
 
 import cn from 'classnames';
 
@@ -92,7 +92,7 @@ MainScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   activeCity: state.main.activeCity,
-  cityOffers: sortOffers(getCityOffers(state.main.offers, state.main.activeCity), state.main.activeSorting),
+  cityOffers: getSortedCityOffers(state),
   isDataLoaded: state.main.isDataLoaded,
 });
 
