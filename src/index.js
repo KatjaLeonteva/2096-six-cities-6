@@ -13,8 +13,6 @@ import {redirect} from './store/middlewares/redirect';
 import App from './components/app/app';
 import {AuthorizationStatus} from './const';
 
-import reviews from './mocks/reviews'; // TODO: implement loading reviews on offer page
-
 import {createAPI} from './services/api';
 
 const api = createAPI(
@@ -29,7 +27,7 @@ store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
-      <App reviews={reviews} />
+      <App />
     </Provider>,
     document.querySelector(`#root`)
 );

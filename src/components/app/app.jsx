@@ -14,8 +14,7 @@ import {AppRoutes} from '../../const';
 import browserHistory from '../../browser-history';
 
 
-const App = (props) => {
-  const {reviews} = props;
+const App = () => {
 
   return (
     <BrowserRouter history={browserHistory}>
@@ -27,7 +26,7 @@ const App = (props) => {
           <SignInScreen />
         </Route>
         <Route exact path={AppRoutes.OFFER}>
-          <OfferScreenContainer reviews={reviews} />
+          <OfferScreenContainer />
         </Route>
         <PrivateRoute exact path={AppRoutes.FAVORITES} render={() => <FavoritesScreen />} />
         <Route>
