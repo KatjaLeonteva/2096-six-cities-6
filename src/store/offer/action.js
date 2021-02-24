@@ -2,7 +2,8 @@ export const ActionType = {
   LOAD_OFFER: `offer/loadOffer`,
   LOAD_REVIEWS: `offer/loadReviews`,
   LOAD_NEARBY: `offer/loadNearby`,
-  OFFER_NOT_FOUND: `offer/notFound`
+  OFFER_NOT_FOUND: `offer/notFound`,
+  CLEAN_STATE: `offer/cleanState`
 };
 
 export const ActionCreator = {
@@ -20,5 +21,8 @@ export const ActionCreator = {
   }),
   offerNotFound: () => ({
     type: ActionType.OFFER_NOT_FOUND
+  }),
+  cleanState: () => ({
+    type: ActionType.CLEAN_STATE
   })
 };

@@ -6,6 +6,7 @@ import {reviewPropType, offerPropType} from '../../prop-types';
 
 import {connect} from 'react-redux';
 import {fetchOfferById, fetchNearby, fetchReviews} from '../../store/offer/api-actions';
+import {ActionCreator} from '../../store/offer/action';
 
 import OfferScreen from './offer-screen';
 import {AuthorizationStatus} from '../../const';
@@ -14,12 +15,14 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 
 const OfferScreenContainer = (props) => {
-  const {authStatus, onLoadOfferData, offer, reviews, nearby, offerNotFound} = props;
+  const {authStatus, onLoadOfferData, offer, reviews, nearby, offerNotFound, onUnmount} = props;
   const {id} = useParams();
   const isAuthorized = authStatus === AuthorizationStatus.AUTH;
 
   useEffect(() => {
     onLoadOfferData(id);
+
+    return onUnmount;
   }, [id]);
 
   if (offerNotFound) {
@@ -35,7 +38,8 @@ OfferScreenContainer.propTypes = {
   offer: offerPropType,
   reviews: PropTypes.arrayOf(reviewPropType),
   nearby: PropTypes.arrayOf(offerPropType),
-  offerNotFound: PropTypes.bool
+  offerNotFound: PropTypes.bool,
+  onUnmount: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
@@ -52,6 +56,9 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchReviews(id));
     dispatch(fetchNearby(id));
   },
+  onUnmount() {
+    dispatch(ActionCreator.cleanState());
+  }
 });
 
 export {OfferScreenContainer};

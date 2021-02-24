@@ -31,6 +31,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         offerNotFound: true
       };
+    case ActionType.CLEAN_STATE:
+      return {
+        ...state,
+        offer: null,
+        reviews: [],
+        nearby: [],
+        offerNotFound: false
+      };
     default:
       return state;
   }

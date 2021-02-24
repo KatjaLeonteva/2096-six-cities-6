@@ -46,11 +46,9 @@ const Map = (props) => {
     const markers = [];
 
     points.forEach((point) => {
-      const icon = (activePoint && (point.id === activePoint.id)) ? activeIcon : simpleIcon;
-
       markers.push(
           leaflet
-            .marker([point.location.latitude, point.location.longitude], {icon})
+            .marker([point.location.latitude, point.location.longitude], {icon: simpleIcon})
             .addTo(mapRef.current)
             .bindPopup(`<a href="offer/${point.id}">${point.title}</a>`)
       );
@@ -60,7 +58,25 @@ const Map = (props) => {
       markers.forEach((marker) => mapRef.current.removeLayer(marker));
     };
 
-  }, [points, activePoint]);
+  }, [points]);
+
+  useEffect(() => {
+    let marker;
+
+    if (activePoint) {
+      marker = leaflet
+        .marker([activePoint.location.latitude, activePoint.location.longitude], {icon: activeIcon})
+        .addTo(mapRef.current)
+        .bindPopup(`<a href="offer/${activePoint.id}">${activePoint.title}</a>`);
+    }
+
+    return () => {
+      if (marker) {
+        mapRef.current.removeLayer(marker);
+      }
+    };
+
+  }, [activePoint]);
 
   return (
     <div id="map" style={{height: `100%`}} ref={mapRef}></div>

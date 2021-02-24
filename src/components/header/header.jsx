@@ -24,14 +24,17 @@ const Header = (props) => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <Link className="header__nav-link header__nav-link--profile" to={AppRoutes.LOGIN}>
-                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                  {isAuthorized ?
+                {isAuthorized ?
+                  <Link className="header__nav-link header__nav-link--profile" to={AppRoutes.FAVORITES}>
+                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">{authInfo.email}</span>
-                    :
+                  </Link>
+                  :
+                  <Link className="header__nav-link header__nav-link--profile" to={AppRoutes.LOGIN}>
+                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__login">Sign in</span>
-                  }
-                </Link>
+                  </Link>
+                }
               </li>
             </ul>
           </nav>
