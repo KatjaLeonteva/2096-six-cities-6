@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
 
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {ActionCreator} from '../../store/main/action';
 
 import {Cities} from '../../const';
 
@@ -39,7 +39,7 @@ CitiesList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeCity: state.activeCity
+  activeCity: state.main.activeCity
 });
 
 const mapDispatchToProps = (dispatch) => ({

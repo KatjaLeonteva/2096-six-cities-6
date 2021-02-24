@@ -32,8 +32,8 @@ OfferScreenContainer.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
-  authStatus: state.authorizationStatus,
+  offers: state.main.offers,
+  authStatus: state.user.authorizationStatus,
 });
 
 export {OfferScreenContainer};

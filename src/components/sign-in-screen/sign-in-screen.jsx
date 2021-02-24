@@ -4,7 +4,7 @@ import {authInfoPropType} from '../../prop-types';
 
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {logout} from '../../store/api-actions';
+import {logout} from '../../store/user/api-actions';
 
 import Header from '../header/header';
 import SignInForm from '../sign-in-form/sign-in-form';
@@ -51,8 +51,8 @@ SignInScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  authStatus: state.authorizationStatus,
-  authInfo: state.authInfo
+  authStatus: state.user.authorizationStatus,
+  authInfo: state.user.authInfo
 });
 
 const mapDispatchToProps = (dispatch) => ({

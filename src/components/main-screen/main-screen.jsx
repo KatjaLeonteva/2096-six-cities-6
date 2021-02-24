@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {offerPropType} from '../../prop-types';
 
 import {connect} from 'react-redux';
-import {fetchOffers} from '../../store/api-actions';
+import {fetchOffers} from '../../store/main/api-actions';
 
 import Header from '../header/header';
 import CitiesList from '../cities-list/cities-list';
@@ -20,14 +20,14 @@ import cn from 'classnames';
 
 
 const MainScreen = (props) => {
-  const {activeCity, cityOffers, isOffersDataLoaded, onLoadOffersData} = props;
+  const {activeCity, cityOffers, isDataLoaded, onLoadOffersData} = props;
   const [activeCard, setActiveCard] = useState(null);
 
   useEffect(() => {
-    if (!isOffersDataLoaded) {
+    if (!isDataLoaded) {
       onLoadOffersData();
     }
-  }, [isOffersDataLoaded]);
+  }, [isDataLoaded]);
 
   const handleCardMouseEnter = (selectedCard) => {
     setActiveCard(selectedCard);
@@ -48,7 +48,7 @@ const MainScreen = (props) => {
             <CitiesList />
           </section>
         </div>
-        {!isOffersDataLoaded ?
+        {!isDataLoaded ?
           <div className="container">
             <Spinner />
           </div>
@@ -86,14 +86,14 @@ const MainScreen = (props) => {
 MainScreen.propTypes = {
   activeCity: PropTypes.oneOf(Object.values(Cities)),
   cityOffers: PropTypes.arrayOf(offerPropType),
-  isOffersDataLoaded: PropTypes.bool.isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
   onLoadOffersData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  activeCity: state.activeCity,
-  cityOffers: sortOffers(getCityOffers(state.offers, state.activeCity), state.activeSorting),
-  isOffersDataLoaded: state.isOffersDataLoaded,
+  activeCity: state.main.activeCity,
+  cityOffers: sortOffers(getCityOffers(state.main.offers, state.main.activeCity), state.main.activeSorting),
+  isDataLoaded: state.main.isDataLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({
