@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {authInfoPropType} from '../../prop-types';
+import {authInfoPropType} from '../../../prop-types';
 
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {logout} from '../../store/user/api-actions';
+import {logout} from '../../../store/user/api-actions';
 
-import Header from '../header/header';
-import SignInForm from '../sign-in-form/sign-in-form';
+import Header from '../../header/header';
+import SignInForm from '../../sign-in-form/sign-in-form';
 
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus} from '../../../const';
 
 const SignInScreen = (props) => {
   const {authStatus, authInfo, onLogoutClick} = props;

@@ -2,15 +2,15 @@ import React, {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 
 import PropTypes from 'prop-types';
-import {reviewPropType, offerPropType} from '../../prop-types';
+import {reviewPropType, offerPropType} from '../../../prop-types';
 
 import {connect} from 'react-redux';
-import {fetchOfferById, fetchNearby, fetchReviews} from '../../store/offer/api-actions';
-import {ActionCreator} from '../../store/offer/action';
+import {fetchOfferById, fetchNearby, fetchReviews} from '../../../store/offer/api-actions';
+import {ActionCreator} from '../../../store/offer/action';
 
 import OfferScreen from './offer-screen';
-import {AuthorizationStatus} from '../../const';
-import Spinner from '../spinner/spinner';
+import {AuthorizationStatus} from '../../../const';
+import Spinner from '../../spinner/spinner';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 

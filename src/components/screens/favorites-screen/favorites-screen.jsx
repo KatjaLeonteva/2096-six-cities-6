@@ -1,19 +1,19 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import {offerPropType} from '../../prop-types';
+import {offerPropType} from '../../../prop-types';
 
 import {connect} from 'react-redux';
 
 import {Link} from 'react-router-dom';
 
-import Header from '../header/header';
-import Footer from '../footer/footer';
-import OffersList from '../offers-list/offers-list';
-import FavoritesEmpty from '../favorites-empty/favorites-empty';
+import Header from '../../header/header';
+import Footer from '../../footer/footer';
+import OffersList from '../../offers-list/offers-list';
+import FavoritesEmpty from '../../favorites-empty/favorites-empty';
 
-import {CardTypes} from '../../const';
-import {getFavoriteOffers} from '../../core';
+import {CardTypes} from '../../../const';
+import {getFavoriteOffers} from '../../../core';
 
 import cn from 'classnames';
 

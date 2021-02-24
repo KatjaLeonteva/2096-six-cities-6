@@ -1,20 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {offerPropType} from '../../prop-types';
+import {offerPropType} from '../../../prop-types';
 
 import {connect} from 'react-redux';
-import {fetchOffers} from '../../store/main/api-actions';
-import {getSortedCityOffers} from '../../store/main/selector';
+import {fetchOffers} from '../../../store/main/api-actions';
+import {getSortedCityOffers} from '../../../store/main/selector';
 
-import Header from '../header/header';
-import CitiesList from '../cities-list/cities-list';
-import OffersSorting from '../offers-sorting/offers-sorting';
-import OffersList from '../offers-list/offers-list';
-import Map from '../map/map';
-import MainEmpty from '../main-empty/main-empty';
-import Spinner from '../spinner/spinner';
+import Header from '../../header/header';
+import CitiesList from '../../cities-list/cities-list';
+import OffersSorting from '../../offers-sorting/offers-sorting';
+import OffersList from '../../offers-list/offers-list';
+import Map from '../../map/map';
+import MainEmpty from '../../main-empty/main-empty';
+import Spinner from '../../spinner/spinner';
 
-import {Cities, CardTypes} from '../../const';
+import {Cities, CardTypes} from '../../../const';
 
 import cn from 'classnames';
 

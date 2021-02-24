@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import {reviewPropType} from '../../prop-types';
 import {Router as BrowserRouter, Switch, Route} from 'react-router-dom';
 
-import MainScreen from '../main-screen/main-screen';
-import SignInScreen from '../sign-in-screen/sign-in-screen';
-import FavoritesScreen from '../favorites-screen/favorites-screen';
-import OfferScreenContainer from '../offer-screen/offer-screen-container';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
+import MainScreen from '../screens/main-screen/main-screen';
+import SignInScreen from '../screens/sign-in-screen/sign-in-screen';
+import FavoritesScreen from '../screens/favorites-screen/favorites-screen';
+import OfferScreenContainer from '../screens/offer-screen/offer-screen-container';
+import NotFoundScreen from '../screens/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 
 import {AppRoutes} from '../../const';
