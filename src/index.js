@@ -23,11 +23,11 @@ const store = createStore(reducers, composeWithDevTools(
     applyMiddleware(redirect)
 ));
 
-store.dispatch(checkAuth());
-
-ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.querySelector(`#root`)
-);
+store.dispatch(checkAuth()).then(() => {
+  ReactDOM.render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+      document.querySelector(`#root`)
+  );
+});
