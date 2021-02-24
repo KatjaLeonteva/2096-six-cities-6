@@ -20,8 +20,8 @@ export const login = ({email, password}) => (dispatch, _getState, api) => (
     .then(() => dispatch(ActionCreator.redirectToRoute(AppRoutes.MAIN)))
 );
 
-export const logout = ({email, password}) => (dispatch, _getState, api) => (
-  api.post(APIRoutes.LOGOUT, {email, password})
+export const logout = () => (dispatch, _getState, api) => (
+  api.get(APIRoutes.LOGOUT)
     .then(() => dispatch(ActionCreator.clearAuthInfo()))
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)))
 );

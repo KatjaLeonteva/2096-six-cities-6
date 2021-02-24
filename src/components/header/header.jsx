@@ -51,4 +51,5 @@ const mapStateToProps = (state) => ({
   authInfo: state.authInfo
 });
 
+export {Header};
 export default connect(mapStateToProps)(Header);
