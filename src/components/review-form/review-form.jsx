@@ -1,27 +1,29 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 import {connect} from 'react-redux';
 import {sendReview} from '../../store/offer/api-actions';
 
-import {RATING} from '../../const';
-
+import {Ratings, COMMENT_MIN_LENGTH} from '../../const';
 
 const ReviewForm = (props) => {
   const {id, onSubmit} = props;
   const initialState = {'rating': null, 'comment': ``};
   const [reviewForm, setReviewForm] = useState(initialState);
+  const [disabled, setDisabled] = useState(true);
 
   const handleFieldChange = (evt) => {
     const {name, value} = evt.target;
     setReviewForm({...reviewForm, [name]: value});
   };
 
+  useEffect(() => {
+    setDisabled(!reviewForm.rating || reviewForm.comment.length < COMMENT_MIN_LENGTH);
+  }, [reviewForm]);
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     onSubmit({id, review: reviewForm});
-
-    // TODO: Reset form only on success
     setReviewForm({...reviewForm, ...initialState});
   };
 
@@ -29,7 +31,7 @@ const ReviewForm = (props) => {
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {RATING.map(({value, title}) => (
+        {Ratings.map(({value, title}) => (
           <React.Fragment key={value}>
             <input
               className="form__rating-input visually-hidden"
@@ -58,7 +60,7 @@ const ReviewForm = (props) => {
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay
           with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={disabled}>Submit</button>
       </div>
     </form>
   );

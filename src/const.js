@@ -67,7 +67,7 @@ export const CardTypes = {
   NEARBY: `nearby`
 };
 
-export const RATING = [
+export const Ratings = [
   {
     value: 5,
     title: `perfect`
@@ -89,6 +89,8 @@ export const RATING = [
     title: `terrible`
   }
 ];
+
+export const COMMENT_MIN_LENGTH = 50;
 
 export const APIRoutes = {
   OFFERS: `/hotels`,
