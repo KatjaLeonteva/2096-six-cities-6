@@ -1,33 +1,33 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {offerPropType} from '../../prop-types';
+import {offerPropType} from '../../../prop-types';
 
 import {connect} from 'react-redux';
-import {fetchOffers} from '../../store/api-actions';
+import {fetchOffers} from '../../../store/main/api-actions';
+import {getSortedCityOffers} from '../../../store/main/selector';
 
-import Header from '../header/header';
-import CitiesList from '../cities-list/cities-list';
-import OffersSorting from '../offers-sorting/offers-sorting';
-import OffersList from '../offers-list/offers-list';
-import Map from '../map/map';
-import MainEmpty from '../main-empty/main-empty';
-import Spinner from '../spinner/spinner';
+import Header from '../../header/header';
+import CitiesList from '../../cities-list/cities-list';
+import OffersSorting from '../../offers-sorting/offers-sorting';
+import OffersList from '../../offers-list/offers-list';
+import Map from '../../map/map';
+import MainEmpty from '../../main-empty/main-empty';
+import Spinner from '../../spinner/spinner';
 
-import {Cities, CardTypes} from '../../const';
-import {getCityOffers, sortOffers} from '../../core';
+import {Cities, CardTypes} from '../../../const';
 
 import cn from 'classnames';
 
 
 const MainScreen = (props) => {
-  const {activeCity, cityOffers, isOffersDataLoaded, onLoadOffersData} = props;
+  const {activeCity, cityOffers, isDataLoaded, onLoadOffersData} = props;
   const [activeCard, setActiveCard] = useState(null);
 
   useEffect(() => {
-    if (!isOffersDataLoaded) {
+    if (!isDataLoaded) {
       onLoadOffersData();
     }
-  }, [isOffersDataLoaded]);
+  }, [isDataLoaded]);
 
   const handleCardMouseEnter = (selectedCard) => {
     setActiveCard(selectedCard);
@@ -48,7 +48,7 @@ const MainScreen = (props) => {
             <CitiesList />
           </section>
         </div>
-        {!isOffersDataLoaded ?
+        {!isDataLoaded ?
           <div className="container">
             <Spinner />
           </div>
@@ -86,14 +86,14 @@ const MainScreen = (props) => {
 MainScreen.propTypes = {
   activeCity: PropTypes.oneOf(Object.values(Cities)),
   cityOffers: PropTypes.arrayOf(offerPropType),
-  isOffersDataLoaded: PropTypes.bool.isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
   onLoadOffersData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  activeCity: state.activeCity,
-  cityOffers: sortOffers(getCityOffers(state.offers, state.activeCity), state.activeSorting),
-  isOffersDataLoaded: state.isOffersDataLoaded,
+  activeCity: state.main.activeCity,
+  cityOffers: getSortedCityOffers(state),
+  isDataLoaded: state.main.isDataLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,10 +1,6 @@
 import {ActionCreator} from './action';
-import {AppRoutes, APIRoutes, AuthorizationStatus} from '../const';
-
-export const fetchOffers = () => (dispatch, _getState, api) => (
-  api.get(APIRoutes.OFFERS)
-    .then(({data}) => dispatch(ActionCreator.loadOffers(data)))
-);
+import {ActionCreator as middlewareActionCreator} from '../middlewares/action';
+import {AppRoutes, APIRoutes, AuthorizationStatus} from '../../const';
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoutes.LOGIN)
@@ -17,11 +13,13 @@ export const login = ({email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoutes.LOGIN, {email, password})
     .then(({data}) => dispatch(ActionCreator.setAuthInfo(data)))
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-    .then(() => dispatch(ActionCreator.redirectToRoute(AppRoutes.MAIN)))
+    .then(() => dispatch(middlewareActionCreator.redirectToRoute(AppRoutes.MAIN)))
+    .catch(() => {})
 );
 
-export const logout = ({email, password}) => (dispatch, _getState, api) => (
-  api.post(APIRoutes.LOGOUT, {email, password})
-    .then(() => dispatch(ActionCreator.clearAuthInfo()))
+export const logout = () => (dispatch, _getState, api) => (
+  api.get(APIRoutes.LOGOUT)
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)))
+    .then(() => dispatch(ActionCreator.setAuthInfo({})))
+    .catch(() => {})
 );

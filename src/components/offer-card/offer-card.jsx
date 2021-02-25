@@ -11,7 +11,7 @@ import cn from 'classnames';
 
 
 const OfferCard = (props) => {
-  const {offer, cardType, onCardMouseEnter, onCardMouseLeave} = props;
+  const {offer, cardType, onCardMouseEnter = () => {}, onCardMouseLeave = () => {}} = props;
 
   const classModifier = {
     [CardTypes.MAIN]: `cities__`,
@@ -68,11 +68,6 @@ OfferCard.propTypes = {
   cardType: PropTypes.oneOf(Object.values(CardTypes)),
   onCardMouseEnter: PropTypes.func,
   onCardMouseLeave: PropTypes.func
-};
-
-OfferCard.defaultProps = {
-  onCardMouseEnter: () => {},
-  onCardMouseLeave: () => {}
 };
 
 export default OfferCard;
