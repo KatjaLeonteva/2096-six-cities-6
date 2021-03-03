@@ -5,6 +5,7 @@ import {useHistory} from 'react-router-dom';
 
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/main/action';
+import {getActiveCity} from '../../store/main/selectors';
 
 import {Cities} from '../../const';
 
@@ -38,8 +39,8 @@ CitiesList.propTypes = {
   onChangeCity: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({MAIN}) => ({
-  activeCity: MAIN.activeCity
+const mapStateToProps = (state) => ({
+  activeCity: getActiveCity(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

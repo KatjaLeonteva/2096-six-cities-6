@@ -1,59 +1,35 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import PropTypes from 'prop-types';
 import {offerPropType} from '../../../prop-types';
 
 import {connect} from 'react-redux';
-
-import {Link} from 'react-router-dom';
+import {getFavoriteOffers} from '../../../store/favorites/selectors';
+import {fetchFavorites} from '../../../store/favorites/api-actions';
 
 import Header from '../../header/header';
 import Footer from '../../footer/footer';
-import OffersList from '../../offers-list/offers-list';
 import FavoritesEmpty from '../../favorites-empty/favorites-empty';
-
-import {CardTypes} from '../../../const';
-import {getFavoriteOffers} from '../../../core';
+import FavoritesList from '../../favorites-list/favorites-list';
 
 import cn from 'classnames';
 
 
 const FavoritesScreen = (props) => {
-  const {offers} = props;
-  const offersByCity = offers.reduce((acc, cur) => {
-    acc[cur.city.name] = acc[cur.city.name] ? [...(acc[cur.city.name]), cur] : [cur];
-    return acc;
-  }, {});
+  const {offers, onLoadData} = props;
+  const isEmpty = !offers.length;
+
+  useEffect(() => {
+    onLoadData();
+  }, []);
 
   return (
-    <div className={cn(`page`, {'page--favorites-empty': !offers.length})}>
+    <div className={cn(`page`, {'page--favorites-empty': isEmpty})}>
       <Header />
 
-      <main className={cn(`page__main page__main--favorites`, {'page__main--favorites-empty': !offers.length})}>
+      <main className={cn(`page__main page__main--favorites`, {'page__main--favorites-empty': isEmpty})}>
         <div className="page__favorites-container container">
-          {offers.length ?
-            <section className="favorites">
-              <h1 className="favorites__title">Saved listing</h1>
-              <ul className="favorites__list">
-                {Object.entries(offersByCity).map(([city, savedOffers]) => {
-                  return (
-                    <li className="favorites__locations-items" key={city}>
-                      <div className="favorites__locations locations locations--current">
-                        <div className="locations__item">
-                          <Link className="locations__item-link" to={`/?city=${city}`}>
-                            <span>{city}</span>
-                          </Link>
-                        </div>
-                      </div>
-                      <OffersList offers={savedOffers} cardType={CardTypes.FAVORITES}/>
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
-            :
-            <FavoritesEmpty />
-          }
+          {isEmpty ? <FavoritesEmpty /> : < FavoritesList offers={offers} />}
         </div>
       </main>
 
@@ -63,12 +39,19 @@ const FavoritesScreen = (props) => {
 };
 
 FavoritesScreen.propTypes = {
-  offers: PropTypes.arrayOf(offerPropType)
+  offers: PropTypes.arrayOf(offerPropType),
+  onLoadData: PropTypes.func
 };
 
-const mapStateToProps = ({MAIN}) => ({
-  offers: getFavoriteOffers(MAIN.offers)
+const mapStateToProps = (state) => ({
+  offers: getFavoriteOffers(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData() {
+    dispatch(fetchFavorites());
+  }
 });
 
 export {FavoritesScreen};
-export default connect(mapStateToProps, null)(FavoritesScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(FavoritesScreen);

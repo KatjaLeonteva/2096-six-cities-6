@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/main/action';
+import {getActiveSorting} from '../../store/main/selectors';
 
 import {SortingTypes} from '../../const';
 
@@ -65,8 +66,8 @@ OffersSorting.propTypes = {
   onChangeSorting: PropTypes.func,
 };
 
-const mapStateToProps = ({MAIN}) => ({
-  activeSorting: MAIN.activeSorting
+const mapStateToProps = (state) => ({
+  activeSorting: getActiveSorting(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

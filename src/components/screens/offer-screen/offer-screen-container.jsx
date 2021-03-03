@@ -7,6 +7,8 @@ import {reviewPropType, offerPropType} from '../../../prop-types';
 import {connect} from 'react-redux';
 import {fetchOfferById, fetchNearby, fetchReviews} from '../../../store/offer/api-actions';
 import {ActionCreator} from '../../../store/offer/action';
+import {getAuthorizationStatus} from '../../../store/user/selectors';
+import {getCurrentOffer, getNearbyOffers, getNotFoundStatus, getReviews} from '../../../store/offer/selectors';
 
 import OfferScreen from './offer-screen';
 import {AuthorizationStatus} from '../../../const';
@@ -42,12 +44,12 @@ OfferScreenContainer.propTypes = {
   onUnmount: PropTypes.func
 };
 
-const mapStateToProps = ({USER, OFFER}) => ({
-  authStatus: USER.authorizationStatus,
-  offer: OFFER.offer,
-  reviews: OFFER.reviews,
-  nearby: OFFER.nearby,
-  offerNotFound: OFFER.offerNotFound
+const mapStateToProps = (state) => ({
+  authStatus: getAuthorizationStatus(state),
+  offer: getCurrentOffer(state),
+  reviews: getReviews(state),
+  nearby: getNearbyOffers(state),
+  offerNotFound: getNotFoundStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

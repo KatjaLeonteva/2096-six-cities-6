@@ -4,7 +4,7 @@ import {offerPropType} from '../../../prop-types';
 
 import {connect} from 'react-redux';
 import {fetchOffers} from '../../../store/main/api-actions';
-import {getSortedCityOffers} from '../../../store/main/selector';
+import {getActiveCity, getDataLoadedStatus, getSortedCityOffers} from '../../../store/main/selectors';
 
 import Header from '../../header/header';
 import CitiesList from '../../cities-list/cities-list';
@@ -90,10 +90,10 @@ MainScreen.propTypes = {
   onLoadOffersData: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({MAIN}) => ({
-  activeCity: MAIN.activeCity,
-  cityOffers: getSortedCityOffers(MAIN),
-  isDataLoaded: MAIN.isDataLoaded,
+const mapStateToProps = (state) => ({
+  activeCity: getActiveCity(state),
+  cityOffers: getSortedCityOffers(state),
+  isDataLoaded: getDataLoadedStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

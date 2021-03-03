@@ -1,9 +1,11 @@
 import {createSelector} from 'reselect';
 import {SortingTypes} from '../../const';
+import {NameSpace} from '../reducer';
 
-const getOffers = (state) => state.offers;
-const getActiveCity = (state) => state.activeCity;
-const getActiveSorting = (state) => state.activeSorting;
+export const getOffers = (state) => state[NameSpace.MAIN].offers;
+export const getActiveCity = (state) => state[NameSpace.MAIN].activeCity;
+export const getActiveSorting = (state) => state[NameSpace.MAIN].activeSorting;
+export const getDataLoadedStatus = (state) => state[NameSpace.MAIN].isDataLoaded;
 
 export const getSortedCityOffers = createSelector(
     [getOffers, getActiveCity, getActiveSorting],

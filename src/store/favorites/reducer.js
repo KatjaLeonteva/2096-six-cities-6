@@ -10,7 +10,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_FAVORITES:
       return {
         ...state,
-        activeCity: adaptOffersData(action.payload)
+        offers: adaptOffersData(action.payload)
       };
     default:
       return state;

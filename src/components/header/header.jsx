@@ -5,6 +5,7 @@ import {authInfoPropType} from '../../prop-types';
 
 import {connect} from 'react-redux';
 import {logout} from '../../store/user/api-actions';
+import {getAuthorizationInfo, getAuthorizationStatus} from '../../store/user/selectors';
 
 import {AppRoutes, AuthorizationStatus} from '../../const';
 
@@ -67,9 +68,9 @@ Header.propTypes = {
   onLogoutClick: PropTypes.func
 };
 
-const mapStateToProps = ({USER}) => ({
-  authStatus: USER.authorizationStatus,
-  authInfo: USER.authInfo
+const mapStateToProps = (state) => ({
+  authStatus: getAuthorizationStatus(state),
+  authInfo: getAuthorizationInfo(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
