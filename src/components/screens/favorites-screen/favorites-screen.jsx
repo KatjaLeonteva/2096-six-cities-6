@@ -66,8 +66,8 @@ FavoritesScreen.propTypes = {
   offers: PropTypes.arrayOf(offerPropType)
 };
 
-const mapStateToProps = (state) => ({
-  offers: getFavoriteOffers(state.main.offers)
+const mapStateToProps = ({MAIN}) => ({
+  offers: getFavoriteOffers(MAIN.offers)
 });
 
 export {FavoritesScreen};

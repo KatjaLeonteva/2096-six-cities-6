@@ -65,8 +65,8 @@ OffersSorting.propTypes = {
   onChangeSorting: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
-  activeSorting: state.main.activeSorting
+const mapStateToProps = ({MAIN}) => ({
+  activeSorting: MAIN.activeSorting
 });
 
 const mapDispatchToProps = (dispatch) => ({

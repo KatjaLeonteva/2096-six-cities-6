@@ -42,12 +42,12 @@ OfferScreenContainer.propTypes = {
   onUnmount: PropTypes.func
 };
 
-const mapStateToProps = (state) => ({
-  authStatus: state.user.authorizationStatus,
-  offer: state.offer.offer,
-  reviews: state.offer.reviews,
-  nearby: state.offer.nearby,
-  offerNotFound: state.offer.offerNotFound
+const mapStateToProps = ({USER, OFFER}) => ({
+  authStatus: USER.authorizationStatus,
+  offer: OFFER.offer,
+  reviews: OFFER.reviews,
+  nearby: OFFER.nearby,
+  offerNotFound: OFFER.offerNotFound
 });
 
 const mapDispatchToProps = (dispatch) => ({

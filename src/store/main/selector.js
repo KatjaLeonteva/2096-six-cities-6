@@ -1,9 +1,9 @@
 import {createSelector} from 'reselect';
 import {SortingTypes} from '../../const';
 
-const getOffers = (state) => state.main.offers;
-const getActiveCity = (state) => state.main.activeCity;
-const getActiveSorting = (state) => state.main.activeSorting;
+const getOffers = (state) => state.offers;
+const getActiveCity = (state) => state.activeCity;
+const getActiveSorting = (state) => state.activeSorting;
 
 export const getSortedCityOffers = createSelector(
     [getOffers, getActiveCity, getActiveSorting],

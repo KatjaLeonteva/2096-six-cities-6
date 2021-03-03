@@ -3,10 +3,16 @@ import {reducer as mainReducer} from './main/reducer';
 import {reducer as userReducer} from './user/reducer';
 import {reducer as offerReducer} from './offer/reducer';
 
+export const NameSpace = {
+  USER: `USER`,
+  MAIN: `MAIN`,
+  OFFER: `OFFER`
+};
+
 const reducers = combineReducers({
-  user: userReducer,
-  main: mainReducer,
-  offer: offerReducer
+  [NameSpace.USER]: userReducer,
+  [NameSpace.MAIN]: mainReducer,
+  [NameSpace.OFFER]: offerReducer
 });
 
 export {reducers};
