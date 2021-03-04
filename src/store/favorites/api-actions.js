@@ -6,7 +6,10 @@ export const fetchFavorites = () => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(ActionCreator.loadFavorites(data)))
 );
 
-export const updateStatus = ({id, status}) => (dispatch, _getState, api) => (
-  api.get(`/favorite/${id}/status`, status)
-    .then(({data}) => data)
+export const updateStatus = (id, status) => (dispatch, _getState, api) => (
+  api.post(`/favorite/${id}/${status}`)
+    .then(({data}) => {
+      console.log(data);
+      return data;
+    })
 );

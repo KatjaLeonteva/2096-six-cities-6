@@ -4,6 +4,8 @@ import {offerPropType} from '../../prop-types';
 
 import {Link} from 'react-router-dom';
 
+import BookmarkButton from '../bookmark-button/bookmark-button';
+
 import {CardTypes, OfferTypes} from '../../const';
 import {getStarsWidth} from '../../utils';
 
@@ -41,12 +43,7 @@ const OfferCard = (props) => {
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&nbsp;&#47;&nbsp;night</span>
           </div>
-          <button className={cn(`place-card__bookmark-button button`, {'place-card__bookmark-button--active': offer.isFavorite})} type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <BookmarkButton classModifier={`place-card__`} offer={offer} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

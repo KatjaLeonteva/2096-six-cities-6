@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {offerPropType} from '../../prop-types';
 
+import BookmarkButton from '../bookmark-button/bookmark-button';
+
 import {OfferTypes} from '../../const';
 import {getStarsWidth} from '../../utils';
 
@@ -22,12 +24,7 @@ const OfferDetails = (props) => {
         }
         <div className="property__name-wrapper">
           <h1 className="property__name">{offer.title}</h1>
-          <button className={cn(`property__bookmark-button button`, {'property__bookmark-button--active': offer.isFavorite})} type="button">
-            <svg className="property__bookmark-icon" width="31" height="33">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <BookmarkButton classModifier={`property__`} offer={offer} width={`31`} height={`33`} />
         </div>
         <div className="property__rating rating">
           <div className="property__stars rating__stars">
