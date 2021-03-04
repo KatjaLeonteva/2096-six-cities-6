@@ -5,7 +5,7 @@ import {offerPropType} from '../../prop-types';
 
 import {connect} from 'react-redux';
 import {getAuthorizationStatus} from '../../store/user/selectors';
-import {updateStatus} from '../../store/favorites/api-actions';
+import {changeStatus} from '../../store/favorites/api-actions';
 
 import {AuthorizationStatus, AppRoutes} from '../../const';
 
@@ -57,7 +57,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onButtonClick(id, status) {
-    dispatch(updateStatus(id, status));
+    dispatch(changeStatus(id, status));
   }
 });
 

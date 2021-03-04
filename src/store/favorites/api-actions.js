@@ -1,4 +1,5 @@
 import {ActionCreator} from './action';
+import {ActionCreator as MainActionCreator} from '../main/action';
 import {APIRoutes} from '../../const';
 
 export const fetchFavorites = () => (dispatch, _getState, api) => (
@@ -6,10 +7,10 @@ export const fetchFavorites = () => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(ActionCreator.loadFavorites(data)))
 );
 
-export const updateStatus = (id, status) => (dispatch, _getState, api) => (
+export const changeStatus = (id, status) => (dispatch, _getState, api) => (
   api.post(`/favorite/${id}/${status}`)
     .then(({data}) => {
-      console.log(data);
-      return data;
+      dispatch(ActionCreator[data[`is_favorite`] ? `addFavorite` : `removeFavorite`](data));
+      dispatch(MainActionCreator.updateOffer(data));
     })
 );

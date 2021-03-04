@@ -1,6 +1,6 @@
 import {ActionType} from './action';
 import {Cities, SortingTypes} from '../../const';
-import {adaptOffersData} from '../../services/adapter';
+import {adaptOffersData, adaptOfferData} from '../../services/adapter';
 
 const initialState = {
   offers: [],
@@ -26,6 +26,17 @@ const reducer = (state = initialState, action) => {
         ...state,
         offers: adaptOffersData(action.payload),
         isDataLoaded: true
+      };
+    case ActionType.UPDATE_OFFER:
+      return {
+        ...state,
+        offers: state.offers.map((offer) => {
+          if (offer.id === action.payload.id) {
+            return adaptOfferData(action.payload);
+          } else {
+            return offer;
+          }
+        }),
       };
     default:
       return state;
