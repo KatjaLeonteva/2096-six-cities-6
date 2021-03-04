@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/main/action';
 import {getActiveCity} from '../../store/main/selectors';
 
-import {Cities} from '../../const';
+import {AppRoutes, Cities} from '../../const';
 
 import cn from 'classnames';
 
@@ -18,7 +18,10 @@ const CitiesList = (props) => {
   const handleCityClick = (evt) => {
     evt.preventDefault();
     onChangeCity(evt.target.innerText);
-    history.push(`/`);
+    history.push({
+      pathname: AppRoutes.MAIN,
+      search: `?city=${evt.target.innerText}`
+    });
   };
 
   return (

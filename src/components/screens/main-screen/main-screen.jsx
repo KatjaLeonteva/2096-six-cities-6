@@ -2,8 +2,11 @@ import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {offerPropType} from '../../../prop-types';
 
+import {useHistory} from 'react-router-dom';
+
 import {connect} from 'react-redux';
 import {fetchOffers} from '../../../store/main/api-actions';
+import {ActionCreator} from '../../../store/main/action';
 import {getActiveCity, getDataLoadedStatus, getSortedCityOffers} from '../../../store/main/selectors';
 
 import Header from '../../header/header';
@@ -12,19 +15,34 @@ import MainOffers from '../../main-offers/main-offers';
 import MainEmpty from '../../main-empty/main-empty';
 import Spinner from '../../spinner/spinner';
 
-import {Cities} from '../../../const';
+import {AppRoutes, Cities} from '../../../const';
 
 import cn from 'classnames';
 
 
 const MainScreen = (props) => {
-  const {activeCity, cityOffers, isDataLoaded, onLoadOffersData} = props;
+  const {activeCity, cityOffers, isDataLoaded, onLoadOffersData, onChangeCity} = props;
+
+  const history = useHistory();
+  const cityParam = new URLSearchParams(history.location.search).get(`city`);
 
   useEffect(() => {
     if (!isDataLoaded) {
       onLoadOffersData();
     }
   }, [isDataLoaded]);
+
+  useEffect(() => {
+    if (!cityParam) {
+      history.push({
+        pathname: AppRoutes.MAIN,
+        search: `?city=${activeCity}`
+      });
+    }
+    if (cityParam && cityParam !== activeCity) {
+      onChangeCity(cityParam);
+    }
+  }, [cityParam]);
 
   return (
     <div className="page page--gray page--main">
@@ -60,6 +78,7 @@ MainScreen.propTypes = {
   cityOffers: PropTypes.arrayOf(offerPropType),
   isDataLoaded: PropTypes.bool.isRequired,
   onLoadOffersData: PropTypes.func.isRequired,
+  onChangeCity: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -71,6 +90,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onLoadOffersData() {
     dispatch(fetchOffers());
+  },
+  onChangeCity(city) {
+    dispatch(ActionCreator.changeCity(city));
   },
 });
 
