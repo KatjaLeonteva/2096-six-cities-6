@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {offerPropType} from '../../../prop-types';
 
-import {useHistory} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 
 import {connect} from 'react-redux';
 import {fetchOffers} from '../../../store/main/api-actions';
@@ -24,7 +24,8 @@ const MainScreen = (props) => {
   const {activeCity, cityOffers, isDataLoaded, onLoadOffersData, onChangeCity} = props;
 
   const history = useHistory();
-  const cityParam = new URLSearchParams(history.location.search).get(`city`);
+  const location = useLocation();
+  const cityParam = new URLSearchParams(location.search).get(`city`);
 
   useEffect(() => {
     if (!isDataLoaded) {
