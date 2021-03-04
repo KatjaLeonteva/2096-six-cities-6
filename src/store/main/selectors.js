@@ -1,6 +1,6 @@
 import {createSelector} from 'reselect';
 import {SortingTypes} from '../../const';
-import {NameSpace} from '../reducer';
+import {NameSpace} from '../root-reducer';
 
 export const getOffers = (state) => state[NameSpace.MAIN].offers;
 export const getActiveCity = (state) => state[NameSpace.MAIN].activeCity;
