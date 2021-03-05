@@ -27,12 +27,13 @@ const reducer = (state = initialState, action) => {
         offers: adaptOffersData(action.payload),
         isDataLoaded: true
       };
-    case ActionType.UPDATE_OFFER:
+    case ActionType.ADD_FAVORITE:
+    case ActionType.REMOVE_FAVORITE:
       return {
         ...state,
         offers: state.offers.map((offer) => {
           if (offer.id === action.payload.id) {
-            return adaptOfferData(action.payload);
+            return {...offer, isFavorite: action.payload[`is_favorite`]};
           } else {
             return offer;
           }

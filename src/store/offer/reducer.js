@@ -39,6 +39,12 @@ const reducer = (state = initialState, action) => {
         nearby: [],
         offerNotFound: false
       };
+    case ActionType.ADD_FAVORITE:
+    case ActionType.REMOVE_FAVORITE:
+      return {
+        ...state,
+        offer: {...state.offer, isFavorite: action.payload[`is_favorite`]}
+      };
     default:
       return state;
   }
