@@ -5,8 +5,8 @@ import {offerPropType} from '../../../prop-types';
 import {useHistory, useLocation} from 'react-router-dom';
 
 import {connect} from 'react-redux';
-import {fetchOffers} from '../../../store/main/api-actions';
-import {ActionCreator} from '../../../store/main/action';
+import {ActionCreator} from '../../../store/action';
+import {fetchOffers} from '../../../store/api-actions';
 import {getActiveCity, getDataLoadedStatus, getSortedCityOffers} from '../../../store/main/selectors';
 
 import Header from '../../header/header';

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 import {connect} from 'react-redux';
-import {sendReview} from '../../store/offer/api-actions';
+import {sendReview} from '../../store/api-actions';
 
 import {Ratings, COMMENT_MIN_LENGTH} from '../../const';
 

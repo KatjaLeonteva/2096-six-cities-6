@@ -11,11 +11,11 @@ export const NameSpace = {
   FAVORITES: `FAVORITES`
 };
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
   [NameSpace.USER]: userReducer,
   [NameSpace.MAIN]: mainReducer,
   [NameSpace.OFFER]: offerReducer,
   [NameSpace.FAVORITES]: favoritesReducer
 });
 
-export {reducers};
+export {rootReducer};

@@ -5,7 +5,7 @@ import {offerPropType} from '../../../prop-types';
 
 import {connect} from 'react-redux';
 import {getDataLoadedStatus, getFavoriteOffers} from '../../../store/favorites/selectors';
-import {fetchFavorites} from '../../../store/favorites/api-actions';
+import {fetchFavorites} from '../../../store/api-actions';
 
 import Header from '../../header/header';
 import Footer from '../../footer/footer';

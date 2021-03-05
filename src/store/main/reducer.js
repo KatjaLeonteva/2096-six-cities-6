@@ -1,4 +1,4 @@
-import {ActionType} from './action';
+import {ActionType} from '../action';
 import {Cities, SortingTypes} from '../../const';
 import {adaptOffersData, adaptOfferData} from '../../services/adapter';
 

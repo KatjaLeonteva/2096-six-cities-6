@@ -1,4 +1,4 @@
-import {NameSpace} from '../reducer';
+import {NameSpace} from '../root-reducer';
 
 export const getCurrentOffer = (state) => state[NameSpace.OFFER].offer;
 export const getReviews = (state) => state[NameSpace.OFFER].reviews;

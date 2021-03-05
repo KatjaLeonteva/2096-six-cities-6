@@ -41,4 +41,4 @@ OffersList.propTypes = {
   onCardMouseLeave: PropTypes.func
 };
 
-export default React.memo(OffersList);
+export default OffersList;

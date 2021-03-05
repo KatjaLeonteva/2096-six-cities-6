@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import {reviewPropType, offerPropType} from '../../../prop-types';
 
 import {connect} from 'react-redux';
-import {fetchOfferById, fetchNearby, fetchReviews} from '../../../store/offer/api-actions';
-import {ActionCreator} from '../../../store/offer/action';
+import {fetchOfferById, fetchNearby, fetchReviews} from '../../../store/api-actions';
+import {ActionCreator} from '../../../store/action';
 import {getAuthorizationStatus} from '../../../store/user/selectors';
 import {getCurrentOffer, getNearbyOffers, getNotFoundStatus, getReviews} from '../../../store/offer/selectors';
 
@@ -59,7 +59,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchNearby(id));
   },
   onUnmount() {
-    dispatch(ActionCreator.cleanState());
+    dispatch(ActionCreator.cleanOfferState());
   }
 });
 
