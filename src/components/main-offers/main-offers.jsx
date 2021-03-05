@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {offerPropType} from '../../prop-types';
 
@@ -13,15 +13,13 @@ const MainOffers = (props) => {
   const {activeCity, offers} = props;
   const [activeCard, setActiveCard] = useState(null);
 
-  const handleCardMouseEnter = useCallback(
-      (selectedCard) => setActiveCard(selectedCard),
-      [activeCard]
-  );
+  const handleCardMouseEnter = (selectedCard) => {
+    setActiveCard(selectedCard);
+  };
 
-  const handleCardMouseLeave = useCallback(
-      () => setActiveCard(null),
-      [activeCard]
-  );
+  const handleCardMouseLeave = () => {
+    setActiveCard(null);
+  };
 
   return (
     <div className="cities__places-container container">

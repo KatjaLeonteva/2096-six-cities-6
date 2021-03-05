@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {authInfoPropType} from '../../prop-types';
 
 import {connect} from 'react-redux';
-import {logout} from '../../store/user/api-actions';
+import {logout} from '../../store/api-actions';
 import {getAuthorizationInfo, getAuthorizationStatus} from '../../store/user/selectors';
 
 import {AppRoutes, AuthorizationStatus} from '../../const';

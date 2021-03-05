@@ -6,8 +6,8 @@ import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {rootReducer} from './store/root-reducer';
-import {ActionCreator} from './store/user/action';
-import {checkAuth} from './store/user/api-actions';
+import {ActionCreator} from './store/action';
+import {checkAuth} from './store/api-actions';
 import {redirect} from './store/middlewares/redirect';
 
 import App from './components/app/app';

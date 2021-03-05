@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
 
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/main/action';
+import {ActionCreator} from '../../store/action';
 import {getActiveCity} from '../../store/main/selectors';
 
 import {Cities} from '../../const';

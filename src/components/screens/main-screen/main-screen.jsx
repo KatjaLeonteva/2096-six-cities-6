@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {offerPropType} from '../../../prop-types';
 
 import {connect} from 'react-redux';
-import {fetchOffers} from '../../../store/main/api-actions';
+import {fetchOffers} from '../../../store/api-actions';
 import {getActiveCity, getDataLoadedStatus, getSortedCityOffers} from '../../../store/main/selectors';
 
 import Header from '../../header/header';
