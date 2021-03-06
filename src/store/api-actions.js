@@ -18,6 +18,7 @@ export const login = ({email, password}) => (dispatch, _getState, api) => (
       dispatch(ActionCreator.setAuthInfo(data));
     })
     .then(() => dispatch(middlewareActionCreator.redirectToRoute(AppRoutes.MAIN)))
+    .catch(() => {})
 );
 
 export const logout = () => (dispatch, _getState, api) => (
@@ -27,6 +28,7 @@ export const logout = () => (dispatch, _getState, api) => (
       dispatch(ActionCreator.setAuthInfo({}));
       dispatch(ActionCreator.resetFavorites());
     })
+    .catch(() => {})
 );
 
 export const fetchOffers = () => (dispatch, _getState, api) => (
