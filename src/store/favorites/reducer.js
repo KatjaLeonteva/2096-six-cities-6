@@ -1,4 +1,4 @@
-import {ActionType} from './action';
+import {ActionType} from '../action';
 import {adaptOffersData} from '../../services/adapter';
 
 const initialState = {
@@ -10,7 +10,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_FAVORITES:
       return {
         ...state,
-        activeCity: adaptOffersData(action.payload)
+        offers: adaptOffersData(action.payload)
       };
     default:
       return state;

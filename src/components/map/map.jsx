@@ -79,7 +79,7 @@ const Map = (props) => {
   }, [activePoint]);
 
   return (
-    <div id="map" style={{height: `100%`}} ref={mapRef}></div>
+    <div id="map" style={{height: `100%`}}></div>
   );
 };
 

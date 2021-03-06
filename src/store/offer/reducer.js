@@ -1,4 +1,4 @@
-import {ActionType} from './action';
+import {ActionType} from '../action';
 import {adaptOfferData, adaptOffersData, adaptReviewsData} from '../../services/adapter';
 
 const initialState = {

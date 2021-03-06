@@ -2,7 +2,8 @@ import React, {useState, useEffect, createRef} from 'react';
 import PropTypes from 'prop-types';
 
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/main/action';
+import {ActionCreator} from '../../store/action';
+import {getActiveSorting} from '../../store/main/selectors';
 
 import {SortingTypes} from '../../const';
 
@@ -66,7 +67,7 @@ OffersSorting.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  activeSorting: state.main.activeSorting
+  activeSorting: getActiveSorting(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
