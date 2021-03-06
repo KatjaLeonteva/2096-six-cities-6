@@ -59,7 +59,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchNearby(id));
   },
   onUnmount() {
-    dispatch(ActionCreator.cleanOfferState());
+    dispatch(ActionCreator.resetOfferState());
   }
 });
 

@@ -1,6 +1,6 @@
 import {ActionType} from '../action';
 import {Cities, SortingTypes} from '../../const';
-import {adaptOffersData, adaptOfferData} from '../../services/adapter';
+import {adaptOffersData} from '../../services/adapter';
 
 const initialState = {
   offers: [],
@@ -38,6 +38,11 @@ const reducer = (state = initialState, action) => {
             return offer;
           }
         }),
+      };
+    case ActionType.RESET_FAVORITES:
+      return {
+        ...state,
+        offers: state.offers.map((offer) => ({...offer, isFavorite: false}))
       };
     default:
       return state;

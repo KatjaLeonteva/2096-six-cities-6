@@ -1,5 +1,5 @@
 import {ActionType} from '../action';
-import {adaptOfferData, adaptOffersData, adaptReviewsData} from '../../services/adapter';
+import {adaptOfferData, adaptReviewsData} from '../../services/adapter';
 
 const initialState = {
   offer: null,
@@ -24,26 +24,28 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_NEARBY:
       return {
         ...state,
-        nearby: adaptOffersData(action.payload)
+        nearby: action.payload.map((offer) => offer.id)
       };
     case ActionType.OFFER_NOT_FOUND:
       return {
         ...state,
         offerNotFound: true
       };
-    case ActionType.CLEAN_STATE:
+    case ActionType.RESET_OFFER_STATE:
       return {
         ...state,
-        offer: null,
-        reviews: [],
-        nearby: [],
-        offerNotFound: false
+        ...initialState
       };
     case ActionType.ADD_FAVORITE:
     case ActionType.REMOVE_FAVORITE:
       return {
         ...state,
-        offer: {...state.offer, isFavorite: action.payload[`is_favorite`]}
+        offer: state.offer ? {...state.offer, isFavorite: action.payload[`is_favorite`]} : null
+      };
+    case ActionType.RESET_FAVORITES:
+      return {
+        ...state,
+        offer: state.offer ? {...state.offer, isFavorite: false} : null
       };
     default:
       return state;
