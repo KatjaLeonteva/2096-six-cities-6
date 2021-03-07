@@ -32,11 +32,10 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         offers: state.offers.map((offer) => {
-          if (offer.id === action.payload.id) {
-            return {...offer, isFavorite: action.payload[`is_favorite`]};
-          } else {
-            return offer;
-          }
+          return {
+            ...offer,
+            isFavorite: offer.id === action.payload.id ? action.payload[`is_favorite`] : offer.isFavorite
+          };
         }),
       };
     case ActionType.RESET_FAVORITES:

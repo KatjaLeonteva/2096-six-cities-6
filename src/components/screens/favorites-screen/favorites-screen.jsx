@@ -21,10 +21,8 @@ const FavoritesScreen = (props) => {
   const isEmpty = !offers.length;
 
   useEffect(() => {
-    if (!isDataLoaded) {
-      onLoadData();
-    }
-  }, [isDataLoaded]);
+    onLoadData();
+  }, []);
 
   return (
     !isDataLoaded ?
