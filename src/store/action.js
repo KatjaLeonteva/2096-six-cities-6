@@ -3,14 +3,16 @@ export const ActionType = {
   SET_AUTH_INFO: `user/login`,
   CHANGE_CITY: `main/changeCity`,
   CHANGE_SORTING: `main/changeSorting`,
-  LOAD_OFFERS: `main/loadOffers`,
-  LOAD_OFFER: `offer/loadOffer`,
+  LOAD_OFFERS: `data/loadOffers`,
+  LOAD_OFFER: `offer/loadDetails`,
   LOAD_REVIEWS: `offer/loadReviews`,
   LOAD_NEARBY: `offer/loadNearby`,
   OFFER_NOT_FOUND: `offer/notFound`,
-  CLEAN_STATE: `offer/cleanState`,
-  CHANGE_STATUS: `offer/changeStatus`,
-  LOAD_FAVORITES: `favorites/loadOffers`
+  RESET_OFFER_STATE: `offer/resetState`,
+  ADD_FAVORITE: `data/addFavorite`,
+  REMOVE_FAVORITE: `data/removeFavorite`,
+  LOAD_FAVORITES: `data/loadFavorites`,
+  RESET_FAVORITES: `data/resetFavorites`,
 };
 
 export const ActionCreator = {
@@ -45,8 +47,8 @@ export const ActionCreator = {
   offerNotFound: () => ({
     type: ActionType.OFFER_NOT_FOUND
   }),
-  cleanOfferState: () => ({
-    type: ActionType.CLEAN_STATE
+  resetOfferState: () => ({
+    type: ActionType.RESET_OFFER_STATE
   }),
   changeCity: (city) => ({
     type: ActionType.CHANGE_CITY,
@@ -56,8 +58,15 @@ export const ActionCreator = {
     type: ActionType.CHANGE_SORTING,
     payload: sorting
   }),
-  changeOfferStatus: (offer) => ({
-    type: ActionType.CHANGE_STATUS,
+  addFavorite: (offer) => ({
+    type: ActionType.ADD_FAVORITE,
     payload: offer
+  }),
+  removeFavorite: (offer) => ({
+    type: ActionType.REMOVE_FAVORITE,
+    payload: offer
+  }),
+  resetFavorites: () => ({
+    type: ActionType.RESET_FAVORITES,
   })
 };

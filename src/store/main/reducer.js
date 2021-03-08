@@ -27,6 +27,22 @@ const reducer = (state = initialState, action) => {
         offers: adaptOffersData(action.payload),
         isDataLoaded: true
       };
+    case ActionType.ADD_FAVORITE:
+    case ActionType.REMOVE_FAVORITE:
+      return {
+        ...state,
+        offers: state.offers.map((offer) => {
+          return {
+            ...offer,
+            isFavorite: offer.id === action.payload.id ? action.payload[`is_favorite`] : offer.isFavorite
+          };
+        }),
+      };
+    case ActionType.RESET_FAVORITES:
+      return {
+        ...state,
+        offers: state.offers.map((offer) => ({...offer, isFavorite: false}))
+      };
     default:
       return state;
   }

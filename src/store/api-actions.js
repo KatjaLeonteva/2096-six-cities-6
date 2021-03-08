@@ -4,23 +4,30 @@ import {APIRoutes, AppRoutes, AuthorizationStatus} from '../const';
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoutes.LOGIN)
-    .then(({data}) => dispatch(ActionCreator.setAuthInfo(data)))
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(({data}) => {
+      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(ActionCreator.setAuthInfo(data));
+    })
     .catch(() => {})
 );
 
 export const login = ({email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoutes.LOGIN, {email, password})
-    .then(({data}) => dispatch(ActionCreator.setAuthInfo(data)))
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(({data}) => {
+      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(ActionCreator.setAuthInfo(data));
+    })
     .then(() => dispatch(middlewareActionCreator.redirectToRoute(AppRoutes.MAIN)))
     .catch(() => {})
 );
 
 export const logout = () => (dispatch, _getState, api) => (
   api.get(APIRoutes.LOGOUT)
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)))
-    .then(() => dispatch(ActionCreator.setAuthInfo({})))
+    .then(() => {
+      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+      dispatch(ActionCreator.setAuthInfo({}));
+      dispatch(ActionCreator.resetFavorites());
+    })
     .catch(() => {})
 );
 
@@ -57,7 +64,9 @@ export const fetchFavorites = () => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(ActionCreator.loadFavorites(data)))
 );
 
-export const updateOfferStatus = ({id, status}) => (dispatch, _getState, api) => (
-  api.get(`/favorite/${id}/status`, status)
-    .then(({data}) => data)
+export const changeOfferStatus = (id, status) => (dispatch, _getState, api) => (
+  api.post(`/favorite/${id}/${status}`)
+    .then(({data}) => {
+      dispatch(ActionCreator[data[`is_favorite`] ? `addFavorite` : `removeFavorite`](data));
+    })
 );
