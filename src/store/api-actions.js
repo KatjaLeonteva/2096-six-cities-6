@@ -37,25 +37,25 @@ export const fetchOffers = () => (dispatch, _getState, api) => (
 );
 
 export const fetchOfferById = (id) => (dispatch, _getState, api) => (
-  api.get(`/hotels/${id}`)
+  api.get(APIRoutes.OFFER.replace(`:id`, id))
     .then(({data}) => dispatch(ActionCreator.loadOfferById(data)))
     .catch(() => dispatch(ActionCreator.offerNotFound()))
 );
 
 export const fetchReviews = (id) => (dispatch, _getState, api) => (
-  api.get(`/comments/${id}`)
+  api.get(APIRoutes.REVIEWS.replace(`:id`, id))
     .then(({data}) => dispatch(ActionCreator.loadReviews(data)))
     .catch(() => {})
 );
 
 export const fetchNearby = (id) => (dispatch, _getState, api) => (
-  api.get(`/hotels/${id}/nearby`)
+  api.get(APIRoutes.OFFERS_NEARBY.replace(`:id`, id))
     .then(({data}) => dispatch(ActionCreator.loadNearby(data)))
     .catch(() => {})
 );
 
 export const sendReview = ({id, review}) => (dispatch, _getState, api) => (
-  api.post(`/comments/${id}`, review)
+  api.post(APIRoutes.REVIEWS.replace(`:id`, id), review)
     .then(({data}) => dispatch(ActionCreator.loadReviews(data)))
 );
 
@@ -65,7 +65,7 @@ export const fetchFavorites = () => (dispatch, _getState, api) => (
 );
 
 export const changeOfferStatus = (id, status) => (dispatch, _getState, api) => (
-  api.post(`/favorite/${id}/${status}`)
+  api.post(APIRoutes.CHANGE_FAVORITE.replace(`:id`, id).replace(`:status`, status))
     .then(({data}) => {
       dispatch(ActionCreator[data[`is_favorite`] ? `addFavorite` : `removeFavorite`](data));
     })

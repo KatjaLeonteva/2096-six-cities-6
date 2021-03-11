@@ -1,6 +1,13 @@
 import {reducer} from './reducer';
 import {ActionType} from '../action';
-import {offerRaw, offerAdapted} from './test-mocks';
+import {offerRaw, offerAdapted, reviewsRaw, nearbyRaw, review, reviewResponse} from './test-mocks';
+
+import MockAdapter from 'axios-mock-adapter';
+import {createAPI} from '../../services/api';
+import {fetchOfferById, fetchReviews, fetchNearby, sendReview, changeOfferStatus} from '../api-actions';
+import {APIRoutes} from "../../const";
+
+const api = createAPI(() => {});
 
 describe(`Reducers work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
@@ -117,6 +124,157 @@ describe(`Reducers work correctly`, () => {
         reviews: [],
         nearby: [],
         offerNotFound: false
+      });
+  });
+});
+
+
+describe(`Async operation work correctly`, () => {
+  it(`Should make a correct API call to not existing offer`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const id = `0`;
+    const offerDetailsLoader = fetchOfferById(id);
+
+    apiMock
+      .onGet(APIRoutes.OFFER.replace(`:id`, id))
+      .reply(404);
+
+    return offerDetailsLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.OFFER_NOT_FOUND
+        });
+      });
+  });
+
+  it(`Should make a correct API call to fetch offer by Id`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const id = `1`;
+    const offerDetailsLoader = fetchOfferById(id);
+
+    apiMock
+      .onGet(APIRoutes.OFFER.replace(`:id`, id))
+      .reply(200, offerRaw);
+
+    return offerDetailsLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_OFFER,
+          payload: offerRaw
+        });
+      });
+  });
+
+  it(`Should make a correct API call to fetch reviews`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const id = `1`;
+    const reviewsLoader = fetchReviews(1);
+
+    apiMock
+      .onGet(APIRoutes.REVIEWS.replace(`:id`, id))
+      .reply(200, reviewsRaw);
+
+    return reviewsLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_REVIEWS,
+          payload: reviewsRaw
+        });
+      });
+  });
+
+  it(`Should make a correct API call to fetch nearby offers`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const id = `1`;
+    const nearbyOffersLoader = fetchNearby(id);
+
+    apiMock
+      .onGet(APIRoutes.OFFERS_NEARBY.replace(`:id`, id))
+      .reply(200, nearbyRaw);
+
+    return nearbyOffersLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_NEARBY,
+          payload: nearbyRaw
+        });
+      });
+  });
+
+  it(`Should make a correct API call to send review`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const id = `1`;
+    const sendReviewLoader = sendReview({id, review});
+
+    apiMock
+      .onPost(APIRoutes.REVIEWS.replace(`:id`, id))
+      .reply(200, [...reviewsRaw, reviewResponse]);
+
+    return sendReviewLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_REVIEWS,
+          payload: [...reviewsRaw, reviewResponse]
+        });
+      });
+  });
+
+  it(`Should make a correct API call mark offer as favorite`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const id = `1`;
+    const status = `1`;
+    const changeStatusLoader = changeOfferStatus(id, status);
+
+    apiMock
+      .onPost(APIRoutes.CHANGE_FAVORITE.replace(`:id`, id).replace(`:status`, status))
+      .reply(200, {...offerRaw, "is_favorite": true});
+
+    return changeStatusLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.ADD_FAVORITE,
+          payload: {...offerRaw, "is_favorite": true}
+        });
+      });
+  });
+
+  it(`Should make a correct API call mark offer as not favorite`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const id = `1`;
+    const status = `0`;
+    const changeStatusLoader = changeOfferStatus(id, status);
+
+    apiMock
+      .onPost(APIRoutes.CHANGE_FAVORITE.replace(`:id`, id).replace(`:status`, status))
+      .reply(200, {...offerRaw, "is_favorite": false});
+
+    return changeStatusLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.REMOVE_FAVORITE,
+          payload: {...offerRaw, "is_favorite": false}
+        });
       });
   });
 });

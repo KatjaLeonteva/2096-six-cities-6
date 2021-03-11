@@ -1,6 +1,13 @@
 import {reducer} from './reducer';
 import {ActionType, ActionCreator} from '../action';
-import {favOfferRaw, favOfferAdapted} from './test-mocks';
+import {favOfferRaw, favOfferAdapted, favOffersRaw} from './test-mocks';
+import {APIRoutes} from '../../const';
+
+import MockAdapter from 'axios-mock-adapter';
+import {createAPI} from '../../services/api';
+import {fetchFavorites} from '../api-actions';
+
+const api = createAPI(() => {});
 
 describe(`Reducers work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
@@ -75,6 +82,28 @@ describe(`Reducers work correctly`, () => {
       .toEqual({
         offers: [],
         isDataLoaded: false
+      });
+  });
+});
+
+describe(`Async operation work correctly`, () => {
+  it(`Should make a correct API call to fetch favorites`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const favoritesLoader = fetchFavorites();
+
+    apiMock
+      .onGet(APIRoutes.FAVORITES)
+      .reply(200, favOffersRaw);
+
+    return favoritesLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_FAVORITES,
+          payload: favOffersRaw
+        });
       });
   });
 });

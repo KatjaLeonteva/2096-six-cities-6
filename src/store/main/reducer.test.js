@@ -1,6 +1,13 @@
 import {reducer} from './reducer';
 import {ActionType, ActionCreator} from '../action';
-import {Cities, SortingTypes} from '../../const';
+import {APIRoutes, Cities, SortingTypes} from '../../const';
+
+import MockAdapter from 'axios-mock-adapter';
+import {createAPI} from '../../services/api';
+import {fetchOffers} from '../api-actions';
+import {offersRaw} from './test-mocks';
+
+const api = createAPI(() => {});
 
 describe(`Reducers work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
@@ -115,6 +122,28 @@ describe(`Reducers work correctly`, () => {
         activeCity: Cities.PARIS,
         activeSorting: SortingTypes.POPULAR,
         isDataLoaded: true
+      });
+  });
+});
+
+describe(`Async operation work correctly`, () => {
+  it(`Should make a correct API call to fetch offers`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const offersLoader = fetchOffers();
+
+    apiMock
+      .onGet(APIRoutes.OFFERS)
+      .reply(200, offersRaw);
+
+    return offersLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_OFFERS,
+          payload: offersRaw
+        });
       });
   });
 });
