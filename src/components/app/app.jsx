@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {Router as BrowserRouter, Switch, Route} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 
 import {connect} from 'react-redux';
 import {fetchOffers} from '../../store/api-actions';
@@ -15,7 +15,6 @@ import PrivateRoute from '../private-route/private-route';
 import Spinner from '../spinner/spinner';
 
 import {AppRoutes} from '../../const';
-import browserHistory from '../../browser-history';
 
 
 const App = (props) => {
@@ -31,23 +30,21 @@ const App = (props) => {
     !isDataLoaded ?
       <Spinner/>
       :
-      <BrowserRouter history={browserHistory}>
-        <Switch>
-          <Route exact path={AppRoutes.MAIN}>
-            <MainScreen/>
-          </Route>
-          <Route exact path={AppRoutes.LOGIN}>
-            <SignInScreen/>
-          </Route>
-          <Route exact path={AppRoutes.OFFER}>
-            <OfferScreenContainer/>
-          </Route>
-          <PrivateRoute exact path={AppRoutes.FAVORITES} render={() => <FavoritesScreen/>}/>
-          <Route>
-            <NotFoundScreen/>
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      <Switch>
+        <Route exact path={AppRoutes.MAIN}>
+          <MainScreen/>
+        </Route>
+        <Route exact path={AppRoutes.LOGIN}>
+          <SignInScreen/>
+        </Route>
+        <Route exact path={AppRoutes.OFFER}>
+          <OfferScreenContainer/>
+        </Route>
+        <PrivateRoute exact path={AppRoutes.FAVORITES} render={() => <FavoritesScreen/>}/>
+        <Route>
+          <NotFoundScreen/>
+        </Route>
+      </Switch>
   );
 };
 
