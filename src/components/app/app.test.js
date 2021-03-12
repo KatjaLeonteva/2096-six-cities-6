@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
+import {render, screen, waitFor} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import * as redux from 'react-redux';
@@ -72,7 +72,7 @@ describe(`Test routing`, () => {
     expect(screen.getByTestId(`password`)).toBeInTheDocument();
   });
 
-  it(`Render 'FavoritesScreen' when user navigates to '/favorites' url`, () => {
+  it(`Render 'FavoritesScreen' when user navigates to '/favorites' url`, async () => {
     const store = mockStore({
       [NameSpace.USER]: {
         authorizationStatus: AuthorizationStatus.AUTH,
@@ -91,6 +91,8 @@ describe(`Test routing`, () => {
     const history = createMemoryHistory();
     history.push(`/favorites`);
 
+    store.dispatch = () => Promise.resolve();
+
     render(
         <redux.Provider store={store}>
           <Router history={history}>
@@ -99,10 +101,12 @@ describe(`Test routing`, () => {
         </redux.Provider>
     );
 
-    expect(screen.getByText(`Saved listing`)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText(`Saved listing`)).toBeInTheDocument();
+    });
   });
 
-  it(`Render 'OfferScreen' when user navigates to '/offer/:id' url`, () => {
+  it(`Render 'OfferScreen' when user navigates to '/offer/:id' url`, async () => {
     const store = mockStore({
       [NameSpace.USER]: {
         authorizationStatus: AuthorizationStatus.NO_AUTH,
@@ -123,6 +127,8 @@ describe(`Test routing`, () => {
     const history = createMemoryHistory();
     history.push(`/offer/1`);
 
+    store.dispatch = () => Promise.resolve();
+
     render(
         <redux.Provider store={store}>
           <Router history={history}>
@@ -131,8 +137,10 @@ describe(`Test routing`, () => {
         </redux.Provider>
     );
 
-    expect(screen.getByText(`Canal View Prinsengracht`)).toBeInTheDocument();
-    expect(screen.getByText(`Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.`)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText(`Canal View Prinsengracht`)).toBeInTheDocument();
+      expect(screen.getByText(`Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.`)).toBeInTheDocument();
+    });
   });
 
   it(`Render 'NotFoundScreen' when user navigates to '/page-not-found' url`, () => {
