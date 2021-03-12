@@ -5,7 +5,7 @@ import {offerRaw, offerAdapted, reviewsRaw, nearbyRaw, review, reviewResponse} f
 import MockAdapter from 'axios-mock-adapter';
 import {createAPI} from '../../services/api';
 import {fetchOfferById, fetchReviews, fetchNearby, sendReview, changeOfferStatus} from '../api-actions';
-import {APIRoutes} from "../../const";
+import {APIRoutes, FavoriteStatus} from '../../const';
 
 const api = createAPI(() => {});
 
@@ -238,7 +238,7 @@ describe(`Async operation work correctly`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const id = `1`;
-    const status = `1`;
+    const status = FavoriteStatus.ADD;
     const changeStatusLoader = changeOfferStatus(id, status);
 
     apiMock
@@ -260,7 +260,7 @@ describe(`Async operation work correctly`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const id = `1`;
-    const status = `0`;
+    const status = FavoriteStatus.REMOVE;
     const changeStatusLoader = changeOfferStatus(id, status);
 
     apiMock
