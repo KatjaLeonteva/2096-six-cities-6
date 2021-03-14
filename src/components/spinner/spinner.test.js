@@ -1,26 +1,22 @@
 import React from 'react';
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import Spinner from './spinner';
 
 
 describe(`Spinner should render correctly`, () => {
   it(`Spinner should render correctly without text prop`, () => {
-    const {getByText} = render(
+    render(
         <Spinner />
     );
 
-    const textElement = getByText(`Loading...`);
-
-    expect(textElement).toBeInTheDocument();
+    expect(screen.getByText(`Loading...`)).toBeInTheDocument();
   });
 
   it(`Spinner should render correctly with text prop`, () => {
-    const {getByText} = render(
+    render(
         <Spinner text={`Please wait...`} />
     );
 
-    const textElement = getByText(`Please wait...`);
-
-    expect(textElement).toBeInTheDocument();
+    expect(screen.getByText(`Please wait...`)).toBeInTheDocument();
   });
 });
