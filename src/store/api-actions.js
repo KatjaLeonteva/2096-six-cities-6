@@ -1,5 +1,4 @@
 import {ActionCreator} from './action';
-import {ActionCreator as middlewareActionCreator} from './middlewares/action';
 import {APIRoutes, AppRoutes, AuthorizationStatus} from '../const';
 
 export const checkAuth = () => (dispatch, _getState, api) => (
@@ -17,7 +16,7 @@ export const login = ({email, password}) => (dispatch, _getState, api) => (
       dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
       dispatch(ActionCreator.setAuthInfo(data));
     })
-    .then(() => dispatch(middlewareActionCreator.redirectToRoute(AppRoutes.MAIN)))
+    .then(() => dispatch(ActionCreator.redirectToRoute(AppRoutes.MAIN)))
     .catch(() => {})
 );
 

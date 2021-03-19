@@ -1,6 +1,5 @@
 import {reducer} from './reducer';
 import {ActionType} from '../action';
-import {ActionType as MiddlewareActionType} from '../middlewares/action';
 import {APIRoutes, AppRoutes, AuthorizationStatus} from '../../const';
 
 import MockAdapter from 'axios-mock-adapter';
@@ -117,7 +116,7 @@ describe(`Async operation work correctly`, () => {
         });
 
         expect(dispatch).toHaveBeenNthCalledWith(3, {
-          type: MiddlewareActionType.REDIRECT_TO_ROUTE,
+          type: ActionType.REDIRECT_TO_ROUTE,
           payload: AppRoutes.MAIN,
         });
       });
